@@ -1,5 +1,5 @@
 {
-	"name": "RestSharepoint",
+	"name": "REST_SharepointTeste",
 	"properties": {
 		"description": "Acesso Sharepoint on-line de teste ",
 		"linkedServiceName": {
