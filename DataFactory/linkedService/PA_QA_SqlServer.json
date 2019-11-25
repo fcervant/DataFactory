@@ -1,0 +1,17 @@
+{
+	"name": "PA_QA_SqlServer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "SQL Server do Portal de Aprovacoes, ambiente de QA",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=10.0.3.147\\BRSAOWSSQLV04QA;initial catalog=VID_PORTALAPROVACOES_SAP;user id=usr_apv_own",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2MDFjNWI3Ni0yMTZlLTQ3M2ItODEzMy1lNWQ3YWU3ODgyZTYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IRlab021",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
