@@ -9,7 +9,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+			"relativeUrl": ""
 		},
 		"schema": []
 	}
