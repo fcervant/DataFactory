@@ -1,7 +1,0 @@
-{
-	"name": "IRW7LAB",
-	"properties": {
-		"type": "SelfHosted",
-		"description": "Integration Runtime instalado no W7LAB"
-	}
-}
