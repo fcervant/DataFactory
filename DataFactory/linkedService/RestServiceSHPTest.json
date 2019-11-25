@@ -1,0 +1,19 @@
+{
+	"name": "RestServiceSHPTest",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web?$select=Title",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Basic",
+			"userName": "fernandorc",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1OWMwMGNjNi0xYTEyLTQzMWYtYTY2NS00NDgzMDAyNmIwZDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IRlab021",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
