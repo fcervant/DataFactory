@@ -1,0 +1,16 @@
+{
+	"name": "RestSharepoint",
+	"properties": {
+		"description": "Acesso Sharepoint on-line de teste ",
+		"linkedServiceName": {
+			"referenceName": "RestServiceSHPTest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+		},
+		"schema": []
+	}
+}
