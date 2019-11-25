@@ -1,0 +1,12 @@
+{
+	"name": "SQL_PortalAprovacoes",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "PA_QA_SqlServer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}

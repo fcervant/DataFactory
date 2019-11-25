@@ -1,0 +1,16 @@
+{
+	"name": "REST_SharepointTeste",
+	"properties": {
+		"description": "Acesso Sharepoint on-line de teste ",
+		"linkedServiceName": {
+			"referenceName": "RestServiceSHPTest",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": ""
+		},
+		"schema": []
+	}
+}
