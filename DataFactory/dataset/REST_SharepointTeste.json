@@ -8,8 +8,7 @@
 		},
 		"parameters": {
 			"token": {
-				"type": "string",
-				"defaultValue": "@concat(string(activity('Web1').output.token_type),'',string(activity('Web1').output.access_token))"
+				"type": "string"
 			}
 		},
 		"annotations": [],
