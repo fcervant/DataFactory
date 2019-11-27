@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "pipe_SHPTest_BLOB",
 	"properties": {
 		"activities": [
 			{
@@ -28,7 +28,10 @@
 						"type": "RestSource",
 						"httpRequestTimeout": "00:01:40",
 						"requestInterval": "00.00:00:00.010",
-						"requestMethod": "GET"
+						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdm90b3JhbnRpbWluZHVzdHJpYWwuc2hhcmVwb2ludC5jb21ANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsImlhdCI6MTU3NDg1Nzg3MSwibmJmIjoxNTc0ODU3ODcxLCJleHAiOjE1NzQ4ODY5NzEsImlkZW50aXR5cHJvdmlkZXIiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwibmFtZWlkIjoiZWQ2ZTYwMjItNzBiZC00ZGQ5LWJjOTktNjU3MGNjZDZlNThkQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsIm9pZCI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInN1YiI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UifQ.XZEQ2bHj70qtZB1GOASaRSirPSRMewR09aJbiFanTR5WAyHK0F1kw8XjgZ7xgiJnvq1PPXEgWbC-Q7rolt21H9N_UK_ahYblfmjnVjSIh-hqPFU86Yl1_Bcz_zfmj6XznNpb2rVWe18nGJqJjTj9hu9ZfE7ud6qvPBcPdngaUYFXDKJ58ey2tDKSHbwfSNCYkD_PZmjjP_US5_VXG087EyuEUvO_kFsSWkqCCJnln4cSRkf0J45YOFXkMYUj-AOemWMAkoMdXbp4zcN4Uo3RI9alOLdDI4AYnwS85LrO71laaTRsQ9h66bBCqKj_wghPZASTsTbGd7MtgGOVewV9nQ"
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
