@@ -123,6 +123,16 @@
 					"referenceName": "ls_frctestedatafactory",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string",
+						"defaultValue": "@pipeline().parameters.FileName"
+					},
+					"folderpath": {
+						"type": "string",
+						"defaultValue": "@pipeline().parameters.FolderPath"
+					}
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
@@ -240,6 +250,16 @@
 					"referenceName": "RestServiceSHPTest",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"token": {
+						"type": "string",
+						"defaultValue": "@concat(string(activity(\"Web1\").output.token_type),'',string(activity('Web1').output.access_token))"
+					},
+					"url": {
+						"type": "string",
+						"defaultValue": "@pipeline().parameters.SharePointUrl"
+					}
+				},
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {
@@ -278,7 +298,14 @@
 					{
 						"name": "Copy data1",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Web1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -332,6 +359,30 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Web1",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+							"method": "GET",
+							"headers": {
+								"grant_type": "client_credentials",
+								"client_id": "ed6e6022-70bd-4dd9-bc99-6570ccd6e58d@49158df8-04df-4db2-a1ae-ee3949ca3984",
+								"client_secret": "eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ+v2ctcJ+Uc=",
+								"resource": "00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+								"Content-Type": "application/x-www-form-urlencoded"
+							}
+						}
 					}
 				],
 				"annotations": []
