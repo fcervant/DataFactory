@@ -15,7 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "@dataset().FileName",
+				"folderPath": "@dataset().filename",
 				"container": "blob-shptest"
 			}
 		}
