@@ -10,7 +10,7 @@
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
 			"userName": "vid_vpar\\fernandorc",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3MjZiOWM0OC1kZGI2LTQ2MzEtOGIwYi03ODBjMTk5ZjNhMDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4NTFmMzhmMC00OTc3LTRiNzQtYmExZC1iMDU1YzE5NDc0NDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRlab021",
