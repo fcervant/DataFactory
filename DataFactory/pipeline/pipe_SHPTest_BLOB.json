@@ -65,11 +65,7 @@
 				"outputs": [
 					{
 						"referenceName": "BLOB_Json",
-						"type": "DatasetReference",
-						"parameters": {
-							"filename": "@pipeline().parameters.FileName",
-							"folderpath": "@pipeline().parameters.FolderPath"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			},
