@@ -20,11 +20,14 @@
 		"ftp_W7LAB_password": {
 			"value": ""
 		},
+		"ls_frctestedatafactory_connectionString": {
+			"value": ""
+		},
 		"RestServiceSHPTest_properties_typeProperties_url": {
-			"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+			"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items"
 		},
 		"RestServiceSHPTest_properties_typeProperties_userName": {
-			"value": "fernandorc"
+			"value": "vid_vpar\\fernandorc"
 		},
 		"ftp_W7LAB_properties_typeProperties_host": {
 			"value": "10.9.12.167"

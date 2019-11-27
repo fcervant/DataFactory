@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ftp_W7LAB'"
 		},
+		"ls_frctestedatafactory_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_frctestedatafactory'"
+		},
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
@@ -37,11 +41,11 @@
 		},
 		"RestServiceSHPTest_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+			"defaultValue": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items"
 		},
 		"RestServiceSHPTest_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "fernandorc"
+			"defaultValue": "vid_vpar\\fernandorc"
 		}
 	},
 	"variables": {
@@ -86,6 +90,20 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ls_frctestedatafactory')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Linked service para blob frctestedatafactory",
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_frctestedatafactory_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/IRlab021')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -95,6 +113,29 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/BLOB_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_frctestedatafactory",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "blob-shptest"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
@@ -141,6 +182,7 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Teste com acesso a api REST do Sharepoint ",
 				"annotations": [],
 				"type": "RestService",
 				"typeProperties": {
@@ -228,7 +270,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -259,17 +301,19 @@
 								"type": "RestSource",
 								"httpRequestTimeout": "00:01:40",
 								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET"
+								"requestMethod": "GET",
+								"additionalHeaders": {
+									"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdm90b3JhbnRpbWluZHVzdHJpYWwuc2hhcmVwb2ludC5jb21ANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsImlhdCI6MTU3NDg1Nzg3MSwibmJmIjoxNTc0ODU3ODcxLCJleHAiOjE1NzQ4ODY5NzEsImlkZW50aXR5cHJvdmlkZXIiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwibmFtZWlkIjoiZWQ2ZTYwMjItNzBiZC00ZGQ5LWJjOTktNjU3MGNjZDZlNThkQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsIm9pZCI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInN1YiI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UifQ.XZEQ2bHj70qtZB1GOASaRSirPSRMewR09aJbiFanTR5WAyHK0F1kw8XjgZ7xgiJnvq1PPXEgWbC-Q7rolt21H9N_UK_ahYblfmjnVjSIh-hqPFU86Yl1_Bcz_zfmj6XznNpb2rVWe18nGJqJjTj9hu9ZfE7ud6qvPBcPdngaUYFXDKJ58ey2tDKSHbwfSNCYkD_PZmjjP_US5_VXG087EyuEUvO_kFsSWkqCCJnln4cSRkf0J45YOFXkMYUj-AOemWMAkoMdXbp4zcN4Uo3RI9alOLdDI4AYnwS85LrO71laaTRsQ9h66bBCqKj_wghPZASTsTbGd7MtgGOVewV9nQ"
+								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
+								"type": "JsonSink",
 								"storeSettings": {
 									"type": "AzureBlobStorageWriteSettings"
 								},
 								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
+									"type": "JsonWriteSettings",
+									"quoteAllText": true
 								}
 							},
 							"enableStaging": false
@@ -283,7 +327,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DelimitedText1",
+								"referenceName": "BLOB_Json",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -294,7 +338,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/REST_SharepointTeste')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
+				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]"
 			]
 		}
 	]
