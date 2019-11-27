@@ -57,7 +57,10 @@
 						"referenceName": "REST_SharepointTeste",
 						"type": "DatasetReference",
 						"parameters": {
-							"token": "@concat(string(activity('Web1').output.token_type),'',string(activity('Web1').output.access_token))"
+							"token": {
+								"value": "@activity('Web1').output",
+								"type": "Expression"
+							}
 						}
 					}
 				],
