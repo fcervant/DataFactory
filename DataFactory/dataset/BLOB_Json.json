@@ -1,0 +1,17 @@
+{
+	"name": "BLOB_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_frctestedatafactory",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "blob-shptest"
+			}
+		}
+	}
+}
