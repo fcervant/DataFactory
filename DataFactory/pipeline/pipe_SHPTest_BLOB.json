@@ -55,7 +55,11 @@
 				"inputs": [
 					{
 						"referenceName": "REST_SharepointTeste",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"token": "@concat(string(activity(\"Web1\").output.token_type),'',string(activity('Web1').output.access_token))",
+							"url": "@pipeline().parameters.SharePointUrl"
+						}
 					}
 				],
 				"outputs": [
