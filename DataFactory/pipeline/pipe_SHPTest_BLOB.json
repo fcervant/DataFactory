@@ -79,6 +79,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+					"method": "GET",
 					"headers": {
 						"grant_type": "client_credentials",
 						"client_id": "ed6e6022-70bd-4dd9-bc99-6570ccd6e58d@49158df8-04df-4db2-a1ae-ee3949ca3984",

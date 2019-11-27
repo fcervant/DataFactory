@@ -5,6 +5,16 @@
 			"referenceName": "ls_frctestedatafactory",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"filename": {
+				"type": "string",
+				"defaultValue": "@pipeline().parameters.FileName"
+			},
+			"folderpath": {
+				"type": "string",
+				"defaultValue": "@pipeline().parameters.FolderPath"
+			}
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
