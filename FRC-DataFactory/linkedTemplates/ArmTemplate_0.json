@@ -125,12 +125,7 @@
 				},
 				"parameters": {
 					"filename": {
-						"type": "string",
-						"defaultValue": "@pipeline().parameters.FileName"
-					},
-					"folderpath": {
-						"type": "string",
-						"defaultValue": "@pipeline().parameters.FolderPath"
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -138,7 +133,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": "@dataset().FileName",
+						"folderPath": "@dataset().filename",
 						"container": "blob-shptest"
 					}
 				},
@@ -253,8 +248,7 @@
 				},
 				"parameters": {
 					"token": {
-						"type": "string",
-						"defaultValue": "@concat(string(activity('Web1').output.token_type),'',string(activity('Web1').output.access_token))"
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -347,7 +341,10 @@
 								"referenceName": "REST_SharepointTeste",
 								"type": "DatasetReference",
 								"parameters": {
-									"token": "@concat(string(activity('Web1').output.token_type),'',string(activity('Web1').output.access_token))"
+									"token": {
+										"value": "@activity('Web1').output",
+										"type": "Expression"
+									}
 								}
 							}
 						],
@@ -356,8 +353,7 @@
 								"referenceName": "BLOB_Json",
 								"type": "DatasetReference",
 								"parameters": {
-									"filename": "file_teste",
-									"folderpath": "teste"
+									"filename": "file_teste"
 								}
 							}
 						]
