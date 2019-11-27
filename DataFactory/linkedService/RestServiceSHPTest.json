@@ -2,14 +2,15 @@
 	"name": "RestServiceSHPTest",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
+		"description": "Teste com acesso a api REST do Sharepoint ",
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web",
+			"url": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
-			"userName": "fernandorc",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0YjUxMDM0YS1mOTgzLTQ0ODYtOTJkYS03MzI4NTViYjEyYjciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userName": "vid_vpar\\fernandorc",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4NTFmMzhmMC00OTc3LTRiNzQtYmExZC1iMDU1YzE5NDc0NDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRlab021",
