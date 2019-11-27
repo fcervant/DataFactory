@@ -13,7 +13,7 @@
 			},
 			"url": {
 				"type": "string",
-				"defaultValue": "@pipeline().parameters.SharePointUrl"
+				"defaultValue": "@pipeline().parameters.SharepointUrl"
 			}
 		},
 		"annotations": [],
