@@ -59,7 +59,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"token": {
-								"value": "@activity('Web1').output",
+								"value": "@activity('GetToken').output",
 								"type": "Expression"
 							}
 						}
