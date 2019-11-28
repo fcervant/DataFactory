@@ -37,7 +37,7 @@
 						"requestInterval": "00.00:00:00.010",
 						"requestMethod": "GET",
 						"additionalHeaders": {
-							"Authorization": "@dataset().token"
+							"Authorization": "@dataset().parameters.token"
 						}
 					},
 					"sink": {
