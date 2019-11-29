@@ -63,7 +63,8 @@
 							"token": {
 								"value": "@activity('GetToken').output",
 								"type": "Expression"
-							}
+							},
+							"relative_url": "  "
 						}
 					}
 				],
