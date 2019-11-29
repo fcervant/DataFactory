@@ -141,6 +141,10 @@
 			"pl_token": {
 				"type": "String",
 				"defaultValue": "."
+			},
+			"pl_test": {
+				"type": "String",
+				"defaultValue": "teste"
 			}
 		},
 		"annotations": []
