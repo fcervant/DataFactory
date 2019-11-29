@@ -133,7 +133,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": "@dataset().filename",
+						"folderPath": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"container": "blob-shptest"
 					}
 				},
@@ -287,7 +290,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "GetSharepointList",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -321,7 +324,10 @@
 								"requestInterval": "00.00:00:00.010",
 								"requestMethod": "GET",
 								"additionalHeaders": {
-									"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdm90b3JhbnRpbWluZHVzdHJpYWwuc2hhcmVwb2ludC5jb21ANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsImlhdCI6MTU3NDkzNjAwNCwibmJmIjoxNTc0OTM2MDA0LCJleHAiOjE1NzQ5NjUxMDQsImlkZW50aXR5cHJvdmlkZXIiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwibmFtZWlkIjoiZWQ2ZTYwMjItNzBiZC00ZGQ5LWJjOTktNjU3MGNjZDZlNThkQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsIm9pZCI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInN1YiI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UifQ.RnHDGDY9EY_zV7s2HSwLqtavknFWyYZ6F5dMVV_ZOLAtbeCwsuP4BcoSSGUMSCaXT75vo-si6qLC3ZIblIny3du7jRO7b0yE7o8LH2nbHbBbWQrAKCH5ejVu8LiwMJ7HejVVsWcDgdihrTBX87z0XvL89d_QH6Bolvb1SuNh9sn1D8Gf4x-Enq9v-fQHVNuvsQGf5CFJbVR0Oc0fvip42rSM97udYiO620692t1Jka_TGdjyFuYXM3z0-gtsuFmFR94_UQKYX8tpJPClK6byTTf0rdTFt5Ks79-9rdy93Uf9mf0LusXG6iwMUL01sZFW_vtcBn7zikrTwhlM3IF3bw",
+									"Authorization": {
+										"value": "@variables('pl_token')",
+										"type": "Expression"
+									},
 									"teste": "fernando"
 								}
 							},
@@ -375,16 +381,18 @@
 							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
 							"method": "POST",
 							"headers": {
-								"grant_type": "client_credentials",
-								"client_id": "ed6e6022-70bd-4dd9-bc99-6570ccd6e58d@49158df8-04df-4db2-a1ae-ee3949ca3984",
-								"client_secret": "eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ+v2ctcJ+Uc=",
-								"resource": "00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
-							"body": "grant_type=client_credentialsclient_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3Dresource=00000003-0000-0ff1-ce00-000000000000%2Fvotorantimindustrial.sharepoint.com%4049158df8-04df-4db2-a1ae-ee3949ca3984undefined=undefined"
+							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984"
 						}
 					}
 				],
+				"variables": {
+					"pl_token": {
+						"type": "String",
+						"defaultValue": "teste"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
