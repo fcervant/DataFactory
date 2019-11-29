@@ -73,7 +73,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "@pipeline().RunId",
+								"value": "@concat('shp_',pipeline().RunId)",
 								"type": "Expression"
 							},
 							"dir": "sharepoint"
