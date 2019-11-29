@@ -150,7 +150,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "pl_test",
-					"value": ""
+					"value": "@string(activity('GetToken').output)"
 				}
 			}
 		],
