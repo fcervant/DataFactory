@@ -184,7 +184,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "pl_token_auto",
-					"value": "\"Bearer \"&@activity('GetToken').output.access_token"
+					"value": "@concat('Bearer ',@activity('GetToken').output.access_token)"
 				}
 			}
 		],
