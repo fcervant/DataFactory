@@ -173,11 +173,18 @@
 			{
 				"name": "Define pl_token_automatico",
 				"type": "SetVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "GetToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "pl_token_auto",
-					"value": "\"Bearer \"&\"teste\""
+					"value": "\"Bearer \"&@activity('GetToken').output.access_token"
 				}
 			}
 		],
