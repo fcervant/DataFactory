@@ -38,10 +38,9 @@
 						"requestMethod": "GET",
 						"additionalHeaders": {
 							"Authorization": {
-								"value": "@variables('pl_token')",
+								"value": "@variables('pl_token_auto')",
 								"type": "Expression"
-							},
-							"teste": "fernando"
+							}
 						}
 					},
 					"sink": {
@@ -154,7 +153,7 @@
 				}
 			},
 			{
-				"name": "Set pl_teste2",
+				"name": "Define pl_teste2",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
