@@ -162,6 +162,10 @@
 			"pl_test": {
 				"type": "String",
 				"defaultValue": "teste"
+			},
+			"pl_test2": {
+				"type": "String",
+				"defaultValue": "teste2"
 			}
 		},
 		"annotations": []
