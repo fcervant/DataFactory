@@ -1,0 +1,150 @@
+{
+	"name": "pipe_SHPTest_BLOBv2",
+	"properties": {
+		"description": "Retorna somente alguns campos da lista Sharepoint, passando a query como parâmetro para o linked service.",
+		"activities": [
+			{
+				"name": "GetSharepointList",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Define pl_token_automatico",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+					},
+					{
+						"name": "Destination",
+						"value": "arquivos//"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Authorization": {
+								"value": "@variables('pl_token_auto')",
+								"type": "Expression"
+							}
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings",
+							"quoteAllText": true
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "REST_SharepointTeste",
+						"type": "DatasetReference",
+						"parameters": {
+							"token": {
+								"value": "@activity('GetToken').output",
+								"type": "Expression"
+							},
+							"relative_url": "  "
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "BLOB_Json",
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": {
+								"value": "@concat('shp_',pipeline().RunId)",
+								"type": "Expression"
+							},
+							"dir": "sharepoint"
+						}
+					}
+				]
+			},
+			{
+				"name": "GetToken",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+					"linkedServices": [
+						{
+							"referenceName": "ls_frctestedatafactory",
+							"type": "LinkedServiceReference"
+						}
+					],
+					"datasets": [
+						{
+							"referenceName": "BLOB_Json",
+							"type": "DatasetReference",
+							"parameters": {
+								"filename": "token",
+								"dir": "sharepoint"
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Define pl_token_automatico",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pl_token_auto",
+					"value": "@concat('Bearer ',activity('GetToken').output.access_token)"
+				}
+			}
+		],
+		"concurrency": 1,
+		"variables": {
+			"pl_token_auto": {
+				"type": "String",
+				"defaultValue": "."
+			}
+		},
+		"annotations": []
+	}
+}
