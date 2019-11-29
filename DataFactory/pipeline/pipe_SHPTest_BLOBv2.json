@@ -75,7 +75,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "@concat('shp_',pipeline().RunId)",
+								"value": "@concat('shpv2_',pipeline().RunId)",
 								"type": "Expression"
 							},
 							"dir": "sharepoint"
