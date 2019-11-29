@@ -65,7 +65,7 @@
 								"value": "@activity('GetToken').output",
 								"type": "Expression"
 							},
-							"relative_url": "  "
+							"relative_url": "  ?$select=Title,Codigo%5Fx0020%5FSAP,Raz%5Fx00e3%5Fo%5Fx0020%5FSocial"
 						}
 					}
 				],
