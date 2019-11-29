@@ -165,7 +165,8 @@
 				"defaultValue": "."
 			},
 			"pl_teste": {
-				"type": "Array"
+				"type": "String",
+				"defaultValue": "."
 			}
 		},
 		"annotations": []
