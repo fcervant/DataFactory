@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Define pl_token_manual",
+						"activity": "Define pl_token_automatico",
 						"dependencyConditions": [
 							"Succeeded"
 						]
