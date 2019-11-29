@@ -301,7 +301,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Define pl_token",
+								"activity": "Define pl_token_manual",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -414,7 +414,7 @@
 						}
 					},
 					{
-						"name": "Define pl_token",
+						"name": "Define pl_token_manual",
 						"type": "SetVariable",
 						"dependsOn": [
 							{
@@ -463,6 +463,23 @@
 							"variableName": "pl_test2",
 							"value": "@activity('GetToken').output.access_token"
 						}
+					},
+					{
+						"name": "Define pl_token_automatico",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_token_auto",
+							"value": "\"Bearer \"&@activity('GetToken').output.access_token"
+						}
 					}
 				],
 				"variables": {
@@ -477,6 +494,10 @@
 					"pl_test2": {
 						"type": "String",
 						"defaultValue": "teste2"
+					},
+					"pl_token_auto": {
+						"type": "String",
+						"defaultValue": "."
 					}
 				},
 				"annotations": []
