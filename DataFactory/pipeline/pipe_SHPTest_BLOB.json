@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Set variable1",
+						"activity": "Define token",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -120,7 +120,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "Define token",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
