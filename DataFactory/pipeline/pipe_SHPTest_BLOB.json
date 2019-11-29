@@ -98,7 +98,7 @@
 			}
 		],
 		"variables": {
-			"token": {
+			"pl_token": {
 				"type": "String",
 				"defaultValue": "teste"
 			}
