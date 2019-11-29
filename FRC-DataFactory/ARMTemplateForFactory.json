@@ -129,7 +129,11 @@
 								"referenceName": "BLOB_Json",
 								"type": "DatasetReference",
 								"parameters": {
-									"filename": "file_teste"
+									"filename": {
+										"value": "data_@pipeline().RunId",
+										"type": "Expression"
+									},
+									"dir": "sharepoint"
 								}
 							}
 						]
@@ -158,7 +162,8 @@
 									"referenceName": "BLOB_Json",
 									"type": "DatasetReference",
 									"parameters": {
-										"filename": "token"
+										"filename": "token",
+										"dir": "sharepoint"
 									}
 								}
 							]
@@ -207,6 +212,9 @@
 				"parameters": {
 					"filename": {
 						"type": "string"
+					},
+					"dir": {
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -214,8 +222,9 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "@dataset().filename",
 						"folderPath": {
-							"value": "@dataset().filename",
+							"value": "@dataset().dir",
 							"type": "Expression"
 						},
 						"container": "blob-shptest"
