@@ -73,7 +73,11 @@
 						"referenceName": "BLOB_Json",
 						"type": "DatasetReference",
 						"parameters": {
-							"filename": "file_teste"
+							"filename": {
+								"value": "data_@pipeline().RunId",
+								"type": "Expression"
+							},
+							"dir": "sharepoint"
 						}
 					}
 				]
@@ -102,7 +106,8 @@
 							"referenceName": "BLOB_Json",
 							"type": "DatasetReference",
 							"parameters": {
-								"filename": "token"
+								"filename": "token",
+								"dir": "sharepoint"
 							}
 						}
 					]
