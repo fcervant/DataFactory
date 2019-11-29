@@ -74,7 +74,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "data_@pipeline().RunId",
+								"value": "@'data_'&pipeline().RunId",
 								"type": "Expression"
 							},
 							"dir": "sharepoint"
