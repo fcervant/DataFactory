@@ -97,6 +97,12 @@
 				}
 			}
 		],
+		"variables": {
+			"token": {
+				"type": "String",
+				"defaultValue": "teste"
+			}
+		},
 		"annotations": []
 	}
 }
