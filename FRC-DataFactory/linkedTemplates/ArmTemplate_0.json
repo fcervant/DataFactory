@@ -378,7 +378,6 @@
 					},
 					{
 						"name": "GetToken",
-						"description": "Recupera token do serviço de autenticação do AD para utilizar na chamada ao Sharepoint online",
 						"type": "WebActivity",
 						"dependsOn": [],
 						"policy": {
@@ -388,12 +387,7 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [
-							{
-								"name": "GetTokenUserProperty01",
-								"value": "teste"
-							}
-						],
+						"userProperties": [],
 						"typeProperties": {
 							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
 							"method": "POST",
@@ -401,12 +395,22 @@
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
 							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
-							"linkedServices": {
-								"0": {
+							"linkedServices": [
+								{
 									"referenceName": "ls_frctestedatafactory",
 									"type": "LinkedServiceReference"
 								}
-							}
+							],
+							"datasets": [
+								{
+									"referenceName": "BLOB_Json",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": "token",
+										"dir": "sharepoint"
+									}
+								}
+							]
 						}
 					},
 					{
@@ -431,16 +435,14 @@
 					"pl_token": {
 						"type": "String",
 						"defaultValue": "."
-					},
-					"pl_teste": {
-						"type": "Array"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/REST_SharepointTeste')]",
-				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]"
+				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
 			]
 		}
 	]
