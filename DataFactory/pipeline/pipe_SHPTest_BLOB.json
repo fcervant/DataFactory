@@ -84,6 +84,7 @@
 			},
 			{
 				"name": "GetToken",
+				"description": "Recupera token do serviço de autenticação do AD para utilizar na chamada ao Sharepoint online",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
@@ -93,7 +94,12 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "GetTokenUserProperty01",
+						"value": "teste"
+					}
+				],
 				"typeProperties": {
 					"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
 					"method": "POST",
@@ -131,6 +137,9 @@
 			"pl_token": {
 				"type": "String",
 				"defaultValue": "."
+			},
+			"pl_teste": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
