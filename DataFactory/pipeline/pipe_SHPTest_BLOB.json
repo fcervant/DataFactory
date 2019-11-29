@@ -152,6 +152,23 @@
 					"variableName": "pl_test",
 					"value": "@string(activity('GetToken').output)"
 				}
+			},
+			{
+				"name": "Set pl_teste2",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pl_test2",
+					"value": "@activity('GetToken').output.access_token"
+				}
 			}
 		],
 		"variables": {
