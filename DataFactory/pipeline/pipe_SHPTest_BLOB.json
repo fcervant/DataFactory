@@ -169,6 +169,16 @@
 					"variableName": "pl_test2",
 					"value": "@activity('GetToken').output.access_token"
 				}
+			},
+			{
+				"name": "Define pl_token_automatico",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pl_token_auto",
+					"value": "\"Bearer \"&\"teste\""
+				}
 			}
 		],
 		"variables": {
