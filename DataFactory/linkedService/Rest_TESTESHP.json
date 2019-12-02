@@ -1,0 +1,12 @@
+{
+	"name": "Rest_TESTESHP",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
