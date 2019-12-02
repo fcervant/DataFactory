@@ -65,7 +65,7 @@
 								"value": "@activity('GetToken').output",
 								"type": "Expression"
 							},
-							"relative_url": "?$select=Title"
+							"relative_url": "/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
 						}
 					}
 				],
