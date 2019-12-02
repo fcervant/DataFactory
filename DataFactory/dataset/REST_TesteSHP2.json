@@ -1,0 +1,13 @@
+{
+	"name": "REST_TesteSHP2",
+	"properties": {
+		"description": "teste",
+		"linkedServiceName": {
+			"referenceName": "Rest_TESTESHP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
