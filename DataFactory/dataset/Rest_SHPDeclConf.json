@@ -9,7 +9,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "?$select=Title"
+			"relativeUrl": "/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
 		},
 		"schema": []
 	}
