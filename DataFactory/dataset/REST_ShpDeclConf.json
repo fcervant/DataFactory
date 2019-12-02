@@ -1,5 +1,5 @@
 {
-	"name": "REST_SHPDeclConf",
+	"name": "REST_ShpDeclConf",
 	"properties": {
 		"description": "Dataset para recuperar dados das listas do Declaração de Conformidade.",
 		"linkedServiceName": {
