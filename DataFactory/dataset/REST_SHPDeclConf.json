@@ -1,10 +1,16 @@
 {
-	"name": "Rest_SHPDeclConf",
+	"name": "REST_SHPDeclConf",
 	"properties": {
 		"description": "Dataset para recuperar dados das listas do Declaração de Conformidade.",
 		"linkedServiceName": {
 			"referenceName": "RestServiceSHPDecConf",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"relative_url": {
+				"type": "string",
+				"defaultValue": "."
+			}
 		},
 		"annotations": [],
 		"type": "RestResource",
