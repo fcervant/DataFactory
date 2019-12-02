@@ -23,6 +23,9 @@
 		"ls_frctestedatafactory_connectionString": {
 			"value": ""
 		},
+		"RestServiceSHPDecConf_password": {
+			"value": ""
+		},
 		"RestServiceSHPTest_properties_typeProperties_url": {
 			"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items"
 		},
@@ -34,6 +37,12 @@
 		},
 		"ftp_W7LAB_properties_typeProperties_userName": {
 			"value": "fernandorc"
+		},
+		"RestServiceSHPDecConf_properties_typeProperties_url": {
+			"value": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items"
+		},
+		"RestServiceSHPDecConf_properties_typeProperties_userName": {
+			"value": "vid_vpar\\fernandorc"
 		},
 		"containerUri": {
 			"value": ""
