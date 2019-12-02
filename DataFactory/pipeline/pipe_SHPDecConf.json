@@ -4,7 +4,8 @@
 		"description": "Retorna campos das listas Sharepoint, passando a query como parâmetro para o linked service - aplicação Declaração de Conformidade",
 		"activities": [
 			{
-				"name": "GetSharepointList",
+				"name": "GetShpDecConfLists",
+				"description": "Obtem dados das listas do site Declaração de Conformidade",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -58,7 +59,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "REST_SHPDeclConf",
+						"referenceName": "REST_ShpDeclConf",
 						"type": "DatasetReference"
 					}
 				],
