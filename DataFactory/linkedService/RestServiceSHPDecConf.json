@@ -6,11 +6,11 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items",
+			"url": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
 			"userName": "vid_vpar\\fernandorc",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZSQy1EQVRBRkFDVE9SWV8yNzhhZmMwZi01NzJmLTRkMWMtOGRkYS03ZmM4OTZlZGFkYTciDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZSQy1EQVRBRkFDVE9SWV83OTk2NWM0Zi05OGNmLTQ0OTAtODgyNC01ZTUxZmFjZjZjODgiDQp9"
 		}
 	}
 }
