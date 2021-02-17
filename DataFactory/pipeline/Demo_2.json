@@ -61,15 +61,6 @@
 								"sink": {
 									"path": "$['TX_NAME']"
 								}
-							},
-							{
-								"source": {
-									"name": "ID_SEC_PERSON",
-									"type": "Decimal"
-								},
-								"sink": {
-									"path": "$['ID_SEC_PERSON']"
-								}
 							}
 						]
 					}
