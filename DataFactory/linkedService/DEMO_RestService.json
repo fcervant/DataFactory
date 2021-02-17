@@ -1,0 +1,13 @@
+{
+	"name": "DEMO_RestService",
+	"properties": {
+		"description": "DEMO Rest Service",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "http://dummy.restapiexample.com/api/v1/employees",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
