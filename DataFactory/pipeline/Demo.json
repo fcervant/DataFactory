@@ -1,0 +1,7 @@
+{
+	"name": "Demo",
+	"properties": {
+		"description": "Copy data from a REST API",
+		"annotations": []
+	}
+}
