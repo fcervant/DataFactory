@@ -5,6 +5,16 @@
 			"referenceName": "REST_SB3_Sharepoint",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Accept": {
+				"type": "string",
+				"defaultValue": "application/json;odata=verbose"
+			},
+			"Content-Type": {
+				"type": "string",
+				"defaultValue": "application/json;odata=verbose"
+			}
+		},
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
