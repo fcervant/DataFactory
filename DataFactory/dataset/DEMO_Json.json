@@ -9,7 +9,10 @@
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"fileName": "DEMO_Teste",
+				"folderPath": "DEMO",
+				"container": "DEMO"
 			}
 		},
 		"schema": {}
