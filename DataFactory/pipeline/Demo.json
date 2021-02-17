@@ -37,23 +37,23 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['data'][0]['id']"
+									"path": "['id']"
 								},
 								"sink": {
-									"path": "$['data'][0]['id']"
+									"path": "$['data']['id']"
 								}
 							},
 							{
 								"source": {
+									"path": "['employee_name']"
+								},
+								"sink": {
 									"path": "$['data'][0]['employee_name']"
-								},
-								"sink": {
-									"path": "$['data'][0]['employee_name']"
 								}
 							},
 							{
 								"source": {
-									"path": "$['data'][0]['employee_salary']"
+									"path": "['employee_salary']"
 								},
 								"sink": {
 									"path": "$['data'][0]['employee_salary']"
@@ -61,7 +61,7 @@
 							},
 							{
 								"source": {
-									"path": "$['data'][0]['employee_age']"
+									"path": "['employee_age']"
 								},
 								"sink": {
 									"path": "$['data'][0]['employee_age']"
@@ -69,13 +69,14 @@
 							},
 							{
 								"source": {
-									"path": "$['data'][0]['profile_image']"
+									"path": "['profile_image']"
 								},
 								"sink": {
 									"path": "$['data'][0]['profile_image']"
 								}
 							}
-						]
+						],
+						"collectionReference": "$['data']"
 					}
 				},
 				"inputs": [
