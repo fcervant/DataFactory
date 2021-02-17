@@ -37,14 +37,6 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['status']"
-								},
-								"sink": {
-									"path": "$['status']"
-								}
-							},
-							{
-								"source": {
 									"path": "$['data'][0]['id']"
 								},
 								"sink": {
