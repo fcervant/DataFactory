@@ -1,0 +1,17 @@
+{
+	"name": "SB3_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked Service para conexão com o bando de dados do SB3",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=10.9.20.74;initial catalog=SB3;user id=SB3RLTO",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlZDZkMDEzMi1mOTg0LTQ3NmMtOGE1NC02Yzk3YjVkMmY3YTgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IRlab021",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
