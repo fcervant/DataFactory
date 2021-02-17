@@ -40,7 +40,7 @@
 									"path": "['id']"
 								},
 								"sink": {
-									"path": "['id']"
+									"path": "id"
 								}
 							},
 							{
