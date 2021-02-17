@@ -17,10 +17,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "select p.ID_SEC_PERSON,p.TX_LOGIN,p.TX_NAME,c.ID_CUSTOMER,c.TX_CUSTOMER_NAME\nfrom [SB3].[SB3].[SEC_PERSON] p\ninner join [SB3].[SB3].[SEC_PERSON_CUSTOMER] pc on p.ID_SEC_PERSON = pc.ID_SEC_PERSON_REPORTER\ninner join [SB3].[SB3].[CUSTOMER] c on c.ID_CUSTOMER = pc.ID_CUSTOMER\nwhere p.TX_EMAIL1 LIKE 'fernando%'\nand pc.ID_SEC_CONTEXT = 5;",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
 					},
 					"sink": {
 						"type": "RestSink",
@@ -36,8 +41,7 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ID_SEC_PERSON",
-									"type": "Decimal"
+									"path": "$['ID_SEC_PERSON']"
 								},
 								"sink": {
 									"path": "$['ID_SEC_PERSON']"
@@ -45,8 +49,7 @@
 							},
 							{
 								"source": {
-									"name": "TX_LOGIN",
-									"type": "String"
+									"path": "$['TX_LOGIN']"
 								},
 								"sink": {
 									"path": "$['TX_LOGIN']"
@@ -54,29 +57,10 @@
 							},
 							{
 								"source": {
-									"name": "TX_NAME",
-									"type": "String"
+									"path": "$['TX_NAME']"
 								},
 								"sink": {
 									"path": "$['TX_NAME']"
-								}
-							},
-							{
-								"source": {
-									"name": "ID_CUSTOMER",
-									"type": "Decimal"
-								},
-								"sink": {
-									"path": "$['ID_CUSTOMER']"
-								}
-							},
-							{
-								"source": {
-									"name": "TX_CUSTOMER_NAME",
-									"type": "String"
-								},
-								"sink": {
-									"path": "$['TX_CUSTOMER_NAME']"
 								}
 							}
 						]
@@ -84,7 +68,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SB3",
+						"referenceName": "DEMO_Json",
 						"type": "DatasetReference"
 					}
 				],
