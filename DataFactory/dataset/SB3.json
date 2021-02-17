@@ -1,12 +1,16 @@
 {
-	"name": "SQL_PortalAprovacoes",
+	"name": "SB3",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "PortalAprovacoesQA",
+			"referenceName": "SB3_LS",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": "SB3",
+			"table": "AGENDA"
+		}
 	}
 }
