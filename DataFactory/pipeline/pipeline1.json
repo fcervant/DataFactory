@@ -1,0 +1,37 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "GET_CUSTOMER_INFO",
+				"description": "Obtem dados do CUSTOMER",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select p.ID_SEC_PERSON,p.TX_LOGIN,p.TX_NAME,c.ID_CUSTOMER,c.TX_CUSTOMER_NAME\nfrom [SB3].[SB3].[SEC_PERSON] p\ninner join [SB3].[SB3].[SEC_PERSON_CUSTOMER] pc on p.ID_SEC_PERSON = pc.ID_SEC_PERSON_REPORTER\ninner join [SB3].[SB3].[CUSTOMER] c on c.ID_CUSTOMER = pc.ID_CUSTOMER\nwhere p.TX_EMAIL1 LIKE 'fernando%'\nand pc.ID_SEC_CONTEXT = 5;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SB3",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

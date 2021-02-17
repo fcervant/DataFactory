@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "SB3",
-			"table": "AGENDA"
+			"table": "VIEW_CHAMADO_COMPLETO_CXT_DHO_ALL_DINAMICOS"
 		}
 	}
 }
