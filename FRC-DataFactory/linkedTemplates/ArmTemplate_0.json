@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PortalAprovacoesQA'"
 		},
+		"REST_SB3_Sharepoint_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'REST_SB3_Sharepoint'"
+		},
+		"RestServiceSHPDecConf_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'RestServiceSHPDecConf'"
+		},
 		"ftp_W7LAB_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ftp_W7LAB'"
@@ -19,9 +27,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_frctestedatafactory'"
 		},
-		"RestServiceSHPDecConf_password": {
+		"DEMO_AzureBlobStorage_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'RestServiceSHPDecConf'"
+			"metadata": "Secure string for 'connectionString' of 'DEMO_AzureBlobStorage'"
 		},
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
@@ -35,11 +43,19 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'RestServiceSHPTest'"
 		},
-		"ftp_W7LAB_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "10.9.12.167"
+		"SB3_LS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SB3_LS'"
 		},
-		"ftp_W7LAB_properties_typeProperties_userName": {
+		"DEMO_RestService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "http://dummy.restapiexample.com/api/v1/employees"
+		},
+		"REST_SB3_Sharepoint_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://votorantimindustrial.sharepoint.com/sites/novastecnologiasvsa/legadosb3"
+		},
+		"REST_SB3_Sharepoint_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "fernandorc"
 		},
@@ -50,6 +66,18 @@
 		"RestServiceSHPDecConf_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "vid_vpar\\fernandorc"
+		},
+		"Rest_TESTESHP_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
+		},
+		"ftp_W7LAB_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "10.9.12.167"
+		},
+		"ftp_W7LAB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "fernandorc"
 		},
 		"RestServiceSHPTest_properties_typeProperties_url": {
 			"type": "string",
@@ -65,6 +93,22 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DEMO_RestService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "DEMO Rest Service",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('DEMO_RestService_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PortalAprovacoesQA')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -74,6 +118,63 @@
 				"type": "SqlServer",
 				"typeProperties": {
 					"connectionString": "[parameters('PortalAprovacoesQA_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/REST_SB3_Sharepoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acesso as listas Sharepoint do site SB3 via REST",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('REST_SB3_Sharepoint_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('REST_SB3_Sharepoint_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('REST_SB3_Sharepoint_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RestServiceSHPDecConf')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acesso às APIs REST do Sharepoint para teste de carga",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestServiceSHPDecConf_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('RestServiceSHPDecConf_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('RestServiceSHPDecConf_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Rest_TESTESHP')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('Rest_TESTESHP_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
 				}
 			},
 			"dependsOn": []
@@ -127,22 +228,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/RestServiceSHPDecConf')]",
+			"name": "[concat(parameters('factoryName'), '/DEMO_AzureBlobStorage')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Acesso às APIs REST do Sharepoint para teste de carga",
 				"annotations": [],
-				"type": "RestService",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"url": "[parameters('RestServiceSHPDecConf_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('RestServiceSHPDecConf_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('RestServiceSHPDecConf_password')]"
-					}
+					"connectionString": "[parameters('DEMO_AzureBlobStorage_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -184,6 +277,108 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DEMO_RestResource')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DEMO_RestService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DEMO_RestService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/REST_SB3_Sharepoint')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "REST_SB3_Sharepoint",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": "/_api/lists/getbytitle('ListaCustomers')/items"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/REST_SB3_Sharepoint')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/REST_ShpDeclConf')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Dataset para recuperar dados das listas do Declaração de Conformidade.",
+				"linkedServiceName": {
+					"referenceName": "RestServiceSHPDecConf",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"relative_url": {
+						"type": "string",
+						"defaultValue": "."
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": "/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/RestServiceSHPDecConf')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/REST_TesteSHP2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "teste",
+				"linkedServiceName": {
+					"referenceName": "Rest_TESTESHP",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Rest_TESTESHP')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQL_PortalAprovacoes')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "PortalAprovacoesQA",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/PortalAprovacoesQA')]"
 			]
 		},
 		{
@@ -254,632 +449,48 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Rest_SHPDeclConf')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/SB3_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Dataset para recuperar dados das listas do Declaração de Conformidade.",
-				"linkedServiceName": {
-					"referenceName": "RestServiceSHPDecConf",
-					"type": "LinkedServiceReference"
-				},
+				"description": "Linked Service para conexão com o bando de dados do SB3",
 				"annotations": [],
-				"type": "RestResource",
+				"type": "SqlServer",
 				"typeProperties": {
-					"relativeUrl": "/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
+					"connectionString": "[parameters('SB3_LS_connectionString')]"
 				},
-				"schema": []
+				"connectVia": {
+					"referenceName": "IRlab021",
+					"type": "IntegrationRuntimeReference"
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/RestServiceSHPDecConf')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/IRlab021')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"name": "[concat(parameters('factoryName'), '/DEMO_Json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
+					"referenceName": "DEMO_AzureBlobStorage",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "DelimitedText",
+				"type": "Json",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"container": "arquivos"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
+						"fileName": "DEMO_Teste",
+						"folderPath": "demo",
+						"container": "demo"
+					}
 				},
-				"schema": []
+				"schema": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/REST_SharepointTeste')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Acesso Sharepoint on-line de teste ",
-				"linkedServiceName": {
-					"referenceName": "RestServiceSHPTest",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"token": {
-						"type": "string"
-					},
-					"relative_url": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {
-					"relativeUrl": {
-						"value": "@dataset().relative_url",
-						"type": "Expression"
-					}
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/RestServiceSHPTest')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL_PortalAprovacoes')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "PA_QA_SqlServer",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/PA_QA_SqlServer')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOB')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "GetSharepointList",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Define pl_token_automatico",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
-							},
-							{
-								"name": "Destination",
-								"value": "arquivos//"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"additionalHeaders": {
-									"Authorization": {
-										"value": "@variables('pl_token_auto')",
-										"type": "Expression"
-									}
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings",
-									"quoteAllText": true
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "REST_SharepointTeste",
-								"type": "DatasetReference",
-								"parameters": {
-									"token": {
-										"value": "@activity('GetToken').output",
-										"type": "Expression"
-									},
-									"relative_url": "  "
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "BLOB_Json",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": {
-										"value": "@concat('shp_',pipeline().RunId)",
-										"type": "Expression"
-									},
-									"dir": "sharepoint"
-								}
-							}
-						]
-					},
-					{
-						"name": "GetToken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
-							"linkedServices": [
-								{
-									"referenceName": "ls_frctestedatafactory",
-									"type": "LinkedServiceReference"
-								}
-							],
-							"datasets": [
-								{
-									"referenceName": "BLOB_Json",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": "token",
-										"dir": "sharepoint"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Define pl_token_manual",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_token",
-							"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdm90b3JhbnRpbWluZHVzdHJpYWwuc2hhcmVwb2ludC5jb21ANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsImlhdCI6MTU3NTAyNjA5OCwibmJmIjoxNTc1MDI2MDk4LCJleHAiOjE1NzUwNTUxOTgsImlkZW50aXR5cHJvdmlkZXIiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwibmFtZWlkIjoiZWQ2ZTYwMjItNzBiZC00ZGQ5LWJjOTktNjU3MGNjZDZlNThkQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsIm9pZCI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInN1YiI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UifQ.CtCVGPMylaMq5Puq-Mcbgp7WE6QiWRNQr2wwPp1Qh2Vanz5EXxFUgPDAd4vDR0IAWhih2wP5ybjS6XiaULbwWh4DePYdpRw1fCevkVcn62OZRs3r5nDjg1Hb0uqtn60OiuJ7Tizht4ozzjha289a7rzQrf40S_F2qRo47Y3Hotw1_vzJvZ5HobimuJTvi2MS7WKSKvBZF1sMhspiwon0L_-eax7w54YQ7ZzKP6QC2H9fZSswdSe8q5jCdr0tJzEgZ5r6dDjOuSQOqz54yaZVcd5rsTy_s7-0k4CirlB4lUPoGca06ksQJjuX0-wc2g0DLetgfwIn-vhfWt9cys_krQ"
-						}
-					},
-					{
-						"name": "Define pl_test",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_test",
-							"value": "@string(activity('GetToken').output)"
-						}
-					},
-					{
-						"name": "Define pl_teste2",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_test2",
-							"value": "@activity('GetToken').output.access_token"
-						}
-					},
-					{
-						"name": "Define pl_token_automatico",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_token_auto",
-							"value": "@concat('Bearer ',activity('GetToken').output.access_token)"
-						}
-					}
-				],
-				"variables": {
-					"pl_token": {
-						"type": "String",
-						"defaultValue": "."
-					},
-					"pl_test": {
-						"type": "String",
-						"defaultValue": "teste"
-					},
-					"pl_test2": {
-						"type": "String",
-						"defaultValue": "teste2"
-					},
-					"pl_token_auto": {
-						"type": "String",
-						"defaultValue": "."
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/REST_SharepointTeste')]",
-				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]",
-				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOBv2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Retorna somente alguns campos da lista Sharepoint, passando a query como parâmetro para o linked service.",
-				"activities": [
-					{
-						"name": "GetSharepointList",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Define pl_token_automatico",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
-							},
-							{
-								"name": "Destination",
-								"value": "arquivos//"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"additionalHeaders": {
-									"Authorization": {
-										"value": "@variables('pl_token_auto')",
-										"type": "Expression"
-									}
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings",
-									"quoteAllText": true
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "REST_SharepointTeste",
-								"type": "DatasetReference",
-								"parameters": {
-									"token": {
-										"value": "@activity('GetToken').output",
-										"type": "Expression"
-									},
-									"relative_url": "?$select=Title,Codigo%5Fx0020%5FSAP,Raz%5Fx00e3%5Fo%5Fx0020%5FSocial"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "BLOB_Json",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": {
-										"value": "@concat('shpv2_',pipeline().RunId)",
-										"type": "Expression"
-									},
-									"dir": "sharepoint"
-								}
-							}
-						]
-					},
-					{
-						"name": "GetToken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
-							"linkedServices": [
-								{
-									"referenceName": "ls_frctestedatafactory",
-									"type": "LinkedServiceReference"
-								}
-							],
-							"datasets": [
-								{
-									"referenceName": "BLOB_Json",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": "token",
-										"dir": "sharepoint"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Define pl_token_automatico",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_token_auto",
-							"value": "@concat('Bearer ',activity('GetToken').output.access_token)"
-						}
-					}
-				],
-				"concurrency": 1,
-				"variables": {
-					"pl_token_auto": {
-						"type": "String",
-						"defaultValue": "."
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/REST_SharepointTeste')]",
-				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]",
-				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipe_SHPDecConf')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Retorna campos das listas Sharepoint, passando a query como parâmetro para o linked service - aplicação Declaração de Conformidade",
-				"activities": [
-					{
-						"name": "GetSharepointList",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Define pl_token_automatico",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
-							},
-							{
-								"name": "Destination",
-								"value": "arquivos//"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"additionalHeaders": {
-									"Authorization": {
-										"value": "@variables('pl_token_auto')",
-										"type": "Expression"
-									}
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings",
-									"quoteAllText": true
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "REST_SharepointTeste",
-								"type": "DatasetReference",
-								"parameters": {
-									"token": {
-										"value": "@activity('GetToken').output",
-										"type": "Expression"
-									},
-									"relative_url": "/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "BLOB_Json",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": {
-										"value": "ListaEmpresa",
-										"type": "Expression"
-									},
-									"dir": "DeclConf"
-								}
-							}
-						]
-					},
-					{
-						"name": "GetToken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
-							"linkedServices": [
-								{
-									"referenceName": "ls_frctestedatafactory",
-									"type": "LinkedServiceReference"
-								}
-							],
-							"datasets": [
-								{
-									"referenceName": "BLOB_Json",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": "token",
-										"dir": "sharepoint"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Define pl_token_automatico",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_token_auto",
-							"value": "@concat('Bearer ',activity('GetToken').output.access_token)"
-						}
-					}
-				],
-				"concurrency": 1,
-				"variables": {
-					"pl_token_auto": {
-						"type": "String",
-						"defaultValue": "."
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/REST_SharepointTeste')]",
-				"[concat(variables('factoryId'), '/datasets/BLOB_Json')]",
-				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
+				"[concat(variables('factoryId'), '/linkedServices/DEMO_AzureBlobStorage')]"
 			]
 		}
 	]
