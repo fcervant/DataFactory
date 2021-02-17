@@ -22,11 +22,75 @@
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "RestSink",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": 10,
+						"requestMethod": "POST",
+						"writeBatchSize": 10000,
+						"httpCompressionType": "none"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID_SEC_PERSON",
+									"type": "Decimal"
+								},
+								"sink": {
+									"path": "$['ID_SEC_PERSON']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_LOGIN",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_LOGIN']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_NAME']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CUSTOMER",
+									"type": "Decimal"
+								},
+								"sink": {
+									"path": "$['ID_CUSTOMER']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_CUSTOMER_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_CUSTOMER_NAME']"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
 						"referenceName": "SB3",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "REST_SB3_Sharepoint",
 						"type": "DatasetReference"
 					}
 				]
