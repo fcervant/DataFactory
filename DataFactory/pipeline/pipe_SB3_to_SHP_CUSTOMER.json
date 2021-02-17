@@ -18,6 +18,15 @@
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
+						"additionalColumns": [
+							{
+								"name": "__metadata",
+								"value": {
+									"value": "SP.Data.ListaCustomersListItem",
+									"type": "Expression"
+								}
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
@@ -75,7 +84,11 @@
 				"outputs": [
 					{
 						"referenceName": "REST_SB3_Sharepoint",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Accept": "application/json;odata=verbose",
+							"Content-Type": "application/json;odata=verbose"
+						}
 					}
 				]
 			}
