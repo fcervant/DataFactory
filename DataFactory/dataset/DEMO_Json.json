@@ -11,8 +11,8 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "DEMO_Teste",
-				"folderPath": "DEMO",
-				"container": "DEMO"
+				"folderPath": "demo",
+				"container": "demo"
 			}
 		},
 		"schema": {}
