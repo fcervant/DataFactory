@@ -48,7 +48,7 @@
 									"path": "['employee_name']"
 								},
 								"sink": {
-									"path": "$['data'][0]['employee_name']"
+									"path": "employee_name"
 								}
 							},
 							{
