@@ -1,0 +1,7 @@
+{
+	"name": "FileServerTest",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Teste com copia de arquivos entre ambiente on-premise e Sharepoint, para o projeto SB3"
+	}
+}
