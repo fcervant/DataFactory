@@ -1,0 +1,22 @@
+{
+	"name": "SB3DelimitedText",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServer_Source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "contexto01.txt",
+				"folderPath": "data_factory"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
