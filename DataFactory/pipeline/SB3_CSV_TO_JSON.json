@@ -363,15 +363,6 @@
 								"sink": {
 									"path": "$['DT_DETACHMENT_PROCESS']"
 								}
-							},
-							{
-								"source": {
-									"name": "Ano_Chamado",
-									"type": "String"
-								},
-								"sink": {
-									"path": "$['Ano_Chamado']"
-								}
 							}
 						]
 					}
