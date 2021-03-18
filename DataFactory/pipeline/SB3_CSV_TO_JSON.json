@@ -32,10 +32,349 @@
 							"type": "FileServerWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "JsonWriteSettings",
+							"filePattern": "arrayOfObjects"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID_CALL_HD",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_HD']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_SEC_CONTEXT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_SEC_CONTEXT']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_SEC_PERSON_REPORTER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_SEC_PERSON_REPORTER']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_SEC_PERSON_ATTENDANT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_SEC_PERSON_ATTENDANT']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_TYPE']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_IMPACT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_IMPACT']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_PRIORITY",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_PRIORITY']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_CALL_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_CALL_DESCRIPTION']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CALL_OPENING",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CALL_OPENING']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CALL_REGISTER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CALL_REGISTER']"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_TIME_DURATION",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['NR_TIME_DURATION']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CUSTOMER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CUSTOMER']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_STATUS']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_RETURN",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_RETURN']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CALL_RETURN",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CALL_RETURN']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_ORIGIN",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_ORIGIN']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CALL_ORIGIN",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CALL_ORIGIN']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CALL_LIMIT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CALL_LIMIT']"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_TIME_SERVICE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['NR_TIME_SERVICE']"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_EFFORT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['NR_EFFORT']"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_DELAY",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['NR_DELAY']"
+								}
+							},
+							{
+								"source": {
+									"name": "BO_TIME_CALCULATED",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['BO_TIME_CALCULATED']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_CLOSING_SOURCE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_CLOSING_SOURCE']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_LAST_CALCULATION",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_LAST_CALCULATION']"
+								}
+							},
+							{
+								"source": {
+									"name": "TX_SOURCE_LAST_CALCULATION",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['TX_SOURCE_LAST_CALCULATION']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_COMPLEMENT_01",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_COMPLEMENT_01']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_COMPLEMENT_02",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_COMPLEMENT_02']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_COMPLEMENT_03",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_COMPLEMENT_03']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CALL_PHASE",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CALL_PHASE']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_CREATION",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_CREATION']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_SEC_PERSON_CREATOR",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_SEC_PERSON_CREATOR']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_MODIFY",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_MODIFY']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_SEC_PERSON_MODIFIER",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_SEC_PERSON_MODIFIER']"
+								}
+							},
+							{
+								"source": {
+									"name": "ID_CHAT",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['ID_CHAT']"
+								}
+							},
+							{
+								"source": {
+									"name": "CD_DETACHMENT_PROCESS",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['CD_DETACHMENT_PROCESS']"
+								}
+							},
+							{
+								"source": {
+									"name": "DT_DETACHMENT_PROCESS",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['DT_DETACHMENT_PROCESS']"
+								}
+							},
+							{
+								"source": {
+									"name": "Ano_Chamado",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['Ano_Chamado']"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
