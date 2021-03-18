@@ -1,0 +1,19 @@
+{
+	"name": "SB3_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServer_Source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "contexto01_JSON.txt",
+				"folderPath": "data_factory"
+			}
+		},
+		"schema": {}
+	}
+}
