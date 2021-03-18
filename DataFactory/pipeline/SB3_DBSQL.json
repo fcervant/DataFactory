@@ -1,0 +1,7 @@
+{
+	"name": "SB3_DBSQL",
+	"properties": {
+		"description": "Acessa base SQL do SB3 para obter dados dos chamados",
+		"annotations": []
+	}
+}
