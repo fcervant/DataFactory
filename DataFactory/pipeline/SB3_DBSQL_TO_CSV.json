@@ -1,5 +1,5 @@
 {
-	"name": "SB3_DBSQL",
+	"name": "SB3_DBSQL_TO_CSV",
 	"properties": {
 		"description": "Acessa base SQL do SB3 para obter dados dos chamados",
 		"activities": [
