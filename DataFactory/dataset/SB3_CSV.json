@@ -20,7 +20,147 @@
 		},
 		"schema": [
 			{
-				"name": "ID_CALL_HD;ID_SEC_CONTEXT;ID_SEC_PERSON_REPORTER;ID_SEC_PERSON_ATTENDANT;ID_CALL_TYPE;ID_IMPACT;ID_PRIORITY;TX_CALL_DESCRIPTION;DT_CALL_OPENING;DT_CALL_REGISTER;NR_TIME_DURATION;ID_CUSTOMER;ID_CALL_STATUS;ID_CALL_RETURN;DT_CALL_RETURN;ID_CALL_ORIGIN;DT_CALL_ORIGIN;DT_CALL_LIMIT;NR_TIME_SERVICE;NR_EFFORT;NR_DELAY;BO_TIME_CALCULATED;TX_CLOSING_SOURCE;DT_LAST_CALCULATION;TX_SOURCE_LAST_CALCULATION;ID_CALL_COMPLEMENT_01;ID_CALL_COMPLEMENT_02;ID_CALL_COMPLEMENT_03;ID_CALL_PHASE;DT_CREATION;ID_SEC_PERSON_CREATOR;DT_MODIFY;ID_SEC_PERSON_MODIFIER;ID_CHAT;CD_DETACHMENT_PROCESS;DT_DETACHMENT_PROCESS;Ano_Chamado",
+				"name": "ID_CALL_HD",
+				"type": "String"
+			},
+			{
+				"name": "ID_SEC_CONTEXT",
+				"type": "String"
+			},
+			{
+				"name": "ID_SEC_PERSON_REPORTER",
+				"type": "String"
+			},
+			{
+				"name": "ID_SEC_PERSON_ATTENDANT",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "ID_IMPACT",
+				"type": "String"
+			},
+			{
+				"name": "ID_PRIORITY",
+				"type": "String"
+			},
+			{
+				"name": "TX_CALL_DESCRIPTION",
+				"type": "String"
+			},
+			{
+				"name": "DT_CALL_OPENING",
+				"type": "String"
+			},
+			{
+				"name": "DT_CALL_REGISTER",
+				"type": "String"
+			},
+			{
+				"name": "NR_TIME_DURATION",
+				"type": "String"
+			},
+			{
+				"name": "ID_CUSTOMER",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_STATUS",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_RETURN",
+				"type": "String"
+			},
+			{
+				"name": "DT_CALL_RETURN",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_ORIGIN",
+				"type": "String"
+			},
+			{
+				"name": "DT_CALL_ORIGIN",
+				"type": "String"
+			},
+			{
+				"name": "DT_CALL_LIMIT",
+				"type": "String"
+			},
+			{
+				"name": "NR_TIME_SERVICE",
+				"type": "String"
+			},
+			{
+				"name": "NR_EFFORT",
+				"type": "String"
+			},
+			{
+				"name": "NR_DELAY",
+				"type": "String"
+			},
+			{
+				"name": "BO_TIME_CALCULATED",
+				"type": "String"
+			},
+			{
+				"name": "TX_CLOSING_SOURCE",
+				"type": "String"
+			},
+			{
+				"name": "DT_LAST_CALCULATION",
+				"type": "String"
+			},
+			{
+				"name": "TX_SOURCE_LAST_CALCULATION",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_COMPLEMENT_01",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_COMPLEMENT_02",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_COMPLEMENT_03",
+				"type": "String"
+			},
+			{
+				"name": "ID_CALL_PHASE",
+				"type": "String"
+			},
+			{
+				"name": "DT_CREATION",
+				"type": "String"
+			},
+			{
+				"name": "ID_SEC_PERSON_CREATOR",
+				"type": "String"
+			},
+			{
+				"name": "DT_MODIFY",
+				"type": "String"
+			},
+			{
+				"name": "ID_SEC_PERSON_MODIFIER",
+				"type": "String"
+			},
+			{
+				"name": "ID_CHAT",
+				"type": "String"
+			},
+			{
+				"name": "CD_DETACHMENT_PROCESS",
+				"type": "String"
+			},
+			{
+				"name": "DT_DETACHMENT_PROCESS",
 				"type": "String"
 			}
 		]
