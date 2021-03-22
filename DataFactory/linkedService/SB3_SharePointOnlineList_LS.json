@@ -6,10 +6,10 @@
 		"annotations": [],
 		"type": "SharePointOnlineList",
 		"typeProperties": {
-			"siteUrl": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/",
+			"siteUrl": "https://votorantimindustrial.sharepoint.com/sites/novastecnologiasvsa/legadosb3/",
 			"tenantId": "49158df8-04df-4db2-a1ae-ee3949ca3984",
-			"servicePrincipalId": "ed6e6022-70bd-4dd9-bc99-6570ccd6e58d ",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZSQy1EQVRBRkFDVE9SWV8zZWZjOTJiNy04NDJiLTRhOTktYTBlNy1hZjIxY2UwMjkwZDciDQp9"
+			"servicePrincipalId": "0be6c3d7-1156-4385-9524-9d37605c6ceb",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZSQy1EQVRBRkFDVE9SWV8yMDUzODc4MS1iODQ1LTRmMTYtODdlNy1kZTIwOGFkYWIyNzciDQp9"
 		}
 	}
 }
