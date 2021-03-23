@@ -1,0 +1,30 @@
+{
+	"name": "SB3_REST_SHP",
+	"properties": {
+		"description": "Acesso Sharepoint on-line site LegadoSB3, lista Chamados",
+		"linkedServiceName": {
+			"referenceName": "RestServiceSHPTest",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"token": {
+				"type": "string"
+			},
+			"relative_url": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().relative_url",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
