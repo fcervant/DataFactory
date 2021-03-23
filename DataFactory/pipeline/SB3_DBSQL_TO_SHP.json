@@ -1,10 +1,10 @@
 {
-	"name": "pipeline1",
+	"name": "SB3_DBSQL_TO_SHP",
 	"properties": {
+		"description": "Copia chamados da base SB3 local para o Sharepoint no Azure",
 		"activities": [
 			{
-				"name": "SB3_DBSQL_TO_SHP",
-				"description": "Copia os registros do SB3 SQL local para a lista Sharepoint no Azure",
+				"name": "Copy data1",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
