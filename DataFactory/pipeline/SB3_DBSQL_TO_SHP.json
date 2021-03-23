@@ -598,7 +598,10 @@
 				"outputs": [
 					{
 						"referenceName": "SB3_REST_SHP",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"relative_url": "/sites/novas tecnologias/legadoSB3/_api/web/Lists(guid'bb8b1bce-4ba3-4759-9b3a-6727b03a4fab')/items"
+						}
 					}
 				]
 			}
