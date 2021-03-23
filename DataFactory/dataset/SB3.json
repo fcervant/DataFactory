@@ -5,6 +5,9 @@
 			"referenceName": "SB3_LS",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SB3"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [
