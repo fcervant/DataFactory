@@ -1,0 +1,664 @@
+{
+	"name": "SB3_SQL_Local",
+	"properties": {
+		"description": "Acessa base SB3 on-premise, servidor 10.9.20.74,1433",
+		"linkedServiceName": {
+			"referenceName": "SB3_LS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "CHAMADO",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 0
+			},
+			{
+				"name": "CASO",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 0
+			},
+			{
+				"name": "ATENDENTE",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_TEMPO_REGISTRO_CHAMADO",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_ABERTURA",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HR_ABERTURA",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_LIMITE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HR_LIMITE",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_ATUALIZACAO_CASO",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HR_ATUALIZACAO_CASO",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_ATUALIZACAO_CHAMADO",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HR_ATUALIZACAO_CHAMADO",
+				"type": "varchar"
+			},
+			{
+				"name": "CLIENTE",
+				"type": "varchar"
+			},
+			{
+				"name": "LOCALIZACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "RELATOR",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIORIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "IMPACTO",
+				"type": "varchar"
+			},
+			{
+				"name": "STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "SLA",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO",
+				"type": "varchar"
+			},
+			{
+				"name": "CLASS_ENCERRAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "FASE_CASO",
+				"type": "varchar"
+			},
+			{
+				"name": "SOLUCAO",
+				"type": "varchar"
+			},
+			{
+				"name": "DESCRICAO",
+				"type": "varchar"
+			},
+			{
+				"name": "INF_ADICIONAIS",
+				"type": "varchar"
+			},
+			{
+				"name": "RESPONSAVEL",
+				"type": "varchar"
+			},
+			{
+				"name": "RESPONSAVEL_ENCERRAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "GRUPO_RESPONSAVEL",
+				"type": "varchar"
+			},
+			{
+				"name": "APROVACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "REABERTURA",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_TEMPO_DURACAO_CHAMADO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_TEMPO_DURACAO_CASO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_ATRASO_CHAMADO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_ATRASO_CASO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_ATRASO_DESC_INTERR",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_ESFORCO_PREVISTO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_ESFORCO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_SALDO_ESFORCO",
+				"type": "varchar"
+			},
+			{
+				"name": "CONTADOR",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TREINAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "VOLUME_CHAMADO",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "CHAMADO_ORIGINAL",
+				"type": "varchar"
+			},
+			{
+				"name": "SOLIC_INTERJ_FPONTO",
+				"type": "varchar"
+			},
+			{
+				"name": "EXCECAO",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPRESA_SAP",
+				"type": "varchar"
+			},
+			{
+				"name": "COMPETENCIAS",
+				"type": "varchar"
+			},
+			{
+				"name": "MATRICULA",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME",
+				"type": "varchar"
+			},
+			{
+				"name": "CPF",
+				"type": "varchar"
+			},
+			{
+				"name": "ANO",
+				"type": "varchar"
+			},
+			{
+				"name": "AREA_RH",
+				"type": "varchar"
+			},
+			{
+				"name": "PRAZO",
+				"type": "varchar"
+			},
+			{
+				"name": "PERIODO",
+				"type": "varchar"
+			},
+			{
+				"name": "MOTIVO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_RH",
+				"type": "varchar"
+			},
+			{
+				"name": "MOTIVO_EXP_REP",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_INSAL_PERIC",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA",
+				"type": "varchar"
+			},
+			{
+				"name": "PAIS_DESTINO",
+				"type": "varchar"
+			},
+			{
+				"name": "SALDO_DEVEDOR",
+				"type": "varchar"
+			},
+			{
+				"name": "NUM_FORPONTO",
+				"type": "varchar"
+			},
+			{
+				"name": "NUM_PARCELAS",
+				"type": "varchar"
+			},
+			{
+				"name": "UNI_FORPONTO",
+				"type": "varchar"
+			},
+			{
+				"name": "PERCENTUAL",
+				"type": "varchar"
+			},
+			{
+				"name": "COD_SINDICATO",
+				"type": "varchar"
+			},
+			{
+				"name": "ACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_REINTEG",
+				"type": "varchar"
+			},
+			{
+				"name": "NUM_POSICAO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_CREDITO",
+				"type": "varchar"
+			},
+			{
+				"name": "VALOR",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_PGTO",
+				"type": "varchar"
+			},
+			{
+				"name": "BANCO",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_COLABORADOR",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_AFASTAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_PENSIONISTA",
+				"type": "varchar"
+			},
+			{
+				"name": "MOTIVO_SOLIC_2",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_ADTO_QUINZ",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_ADMISSAO",
+				"type": "varchar"
+			},
+			{
+				"name": "PLANO_MEDICO",
+				"type": "varchar"
+			},
+			{
+				"name": "PLANO_ODONTO",
+				"type": "varchar"
+			},
+			{
+				"name": "RECLAMANTE",
+				"type": "varchar"
+			},
+			{
+				"name": "RECEM_NASCIDO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_NASCIMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_REEMBOLSO",
+				"type": "varchar"
+			},
+			{
+				"name": "SOLICIT",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_DCTO",
+				"type": "varchar"
+			},
+			{
+				"name": "REQUERIMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "MES_VIGENTE",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_BENEF",
+				"type": "varchar"
+			},
+			{
+				"name": "PRAZO_INSC",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_IMPORT",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_PLANO",
+				"type": "varchar"
+			},
+			{
+				"name": "VIGENCIA",
+				"type": "varchar"
+			},
+			{
+				"name": "CURSO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_FATURA",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_TREINAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_ATUALIZACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_DECLARACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_DOCUMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_INI_CURSO",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_INSTITUICAO",
+				"type": "varchar"
+			},
+			{
+				"name": "TEL_CONTATO",
+				"type": "varchar"
+			},
+			{
+				"name": "SITE",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_ALTERACAO",
+				"type": "varchar"
+			},
+			{
+				"name": "GESTOR",
+				"type": "varchar"
+			},
+			{
+				"name": "UNI_NOTA_PERTENCE",
+				"type": "varchar"
+			},
+			{
+				"name": "FORNECEDOR",
+				"type": "varchar"
+			},
+			{
+				"name": "RG",
+				"type": "varchar"
+			},
+			{
+				"name": "RESPONSAVEL2",
+				"type": "varchar"
+			},
+			{
+				"name": "CENTRO_CUSTO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_FINAL_UTILI",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_VENC",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_BASE",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_ACORD_COLETIVO",
+				"type": "varchar"
+			},
+			{
+				"name": "EXCECAO_BENEF",
+				"type": "varchar"
+			},
+			{
+				"name": "VALOR_NF",
+				"type": "varchar"
+			},
+			{
+				"name": "GESTOR_ORIGEM",
+				"type": "varchar"
+			},
+			{
+				"name": "GESTOR_DESTINO",
+				"type": "varchar"
+			},
+			{
+				"name": "EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "LOGIN_REDE",
+				"type": "varchar"
+			},
+			{
+				"name": "VOLUME1",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_BENEFI",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_AFAST_RETOR",
+				"type": "varchar"
+			},
+			{
+				"name": "MOTIVO_13",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_VIG_BENEF",
+				"type": "varchar"
+			},
+			{
+				"name": "INST_FINANCEIRA",
+				"type": "varchar"
+			},
+			{
+				"name": "MOTIVO_SOLIC",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_BENEF_VT",
+				"type": "varchar"
+			},
+			{
+				"name": "REGIONAL",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_REEEMB_SUBSIDIO",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_SINDICATO",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_ABREVI",
+				"type": "varchar"
+			},
+			{
+				"name": "CNPJ_SINDICATO",
+				"type": "varchar"
+			},
+			{
+				"name": "END_SINDICATO",
+				"type": "varchar"
+			},
+			{
+				"name": "CIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "CEP",
+				"type": "varchar"
+			},
+			{
+				"name": "COD_ENTID_SINDICATO",
+				"type": "varchar"
+			},
+			{
+				"name": "PISO_CATEGORIA",
+				"type": "varchar"
+			},
+			{
+				"name": "SINDICATO_ESPELHO",
+				"type": "varchar"
+			},
+			{
+				"name": "UF",
+				"type": "varchar"
+			},
+			{
+				"name": "ELEG_PLANO",
+				"type": "varchar"
+			},
+			{
+				"name": "VALOR_ANTIGO_PLANO",
+				"type": "varchar"
+			},
+			{
+				"name": "VALOR_ATUAL_PLANO",
+				"type": "varchar"
+			},
+			{
+				"name": "TIPO_SOLIC",
+				"type": "varchar"
+			},
+			{
+				"name": "ALTER_BENEFIC",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_ADM_CADASTRADA",
+				"type": "varchar"
+			},
+			{
+				"name": "ALTERAR_DATA_PARA",
+				"type": "varchar"
+			},
+			{
+				"name": "TX_MATRICULA",
+				"type": "varchar"
+			},
+			{
+				"name": "TX_DT_DESLIGAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "PARENTESCO",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_NASC_PENSIONISTA",
+				"type": "varchar"
+			},
+			{
+				"name": "VOLUME",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DT_DESLIGAMENTO",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_PGTO",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_EDICAO",
+				"type": "varchar"
+			},
+			{
+				"name": "DT_KIT",
+				"type": "varchar"
+			},
+			{
+				"name": "NOME_RESPONSAVEL",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "SB3",
+			"table": "VIEW_CHAMADO_COMPLETO_CXT_DHO_ALL_DINAMICOS"
+		}
+	}
+}
