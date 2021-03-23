@@ -4,7 +4,7 @@
 		"description": "Copia base local para base no Azure",
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copia dados do SQL Local para SQL Azure",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -18,7 +18,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT TOP 200 * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
+						"sqlReaderQuery": "SELECT * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
