@@ -2,15 +2,15 @@
 	"name": "RestServiceSHPTest",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "Teste com acesso a api REST do Sharepoint ",
+		"description": "Teste com acesso a api REST do Sharepoint para lista de Chamados, site Legados SB3",
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items",
+			"url": "https://votorantimindustrial.sharepoint.com/sites/novas tecnologias/legadoSB3/_api/web/Lists(guid'bb8b1bce-4ba3-4759-9b3a-6727b03a4fab')/items",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Basic",
 			"userName": "vid_vpar\\fernandorc",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4NTFmMzhmMC00OTc3LTRiNzQtYmExZC1iMDU1YzE5NDc0NDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2ZWM0OTljNC02NjVjLTQwMzQtYTRhMi1mMDc4Y2Y0ZDU1ZDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRlab021",
