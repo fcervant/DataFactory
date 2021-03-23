@@ -4,7 +4,8 @@
 		"description": "Copia chamados da base SB3 local para o Sharepoint no Azure",
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copia SB3 local para SHP",
+				"description": "Copia chamados da base SB3 local para o Sharepoint no Azure",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,8 +17,35 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select top 100 * from db.bd.asb",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "SB3_SQL_Local",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SB3_JSON",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"folder": {
