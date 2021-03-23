@@ -18,7 +18,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
+						"sqlReaderQuery": "SELECT * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '2'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
