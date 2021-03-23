@@ -1,0 +1,15 @@
+{
+	"name": "SB3_AzureSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SB3_AzureSQL",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

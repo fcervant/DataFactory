@@ -93,6 +93,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "SB3"
+		},
 		"annotations": []
 	}
 }

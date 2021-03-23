@@ -15,6 +15,9 @@
 				"defaultValue": "application/json;odata=verbose"
 			}
 		},
+		"folder": {
+			"name": "SB3"
+		},
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {

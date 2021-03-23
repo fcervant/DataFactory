@@ -6,6 +6,9 @@
 			"referenceName": "SB3_SharePointOnlineList_LS",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SB3"
+		},
 		"annotations": [],
 		"type": "SharePointOnlineListResource",
 		"schema": [],
