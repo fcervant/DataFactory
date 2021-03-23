@@ -1,0 +1,16 @@
+{
+	"name": "SB3_SHP_LegadosSB3",
+	"properties": {
+		"description": "Acesso ao site LegadoSB3 no Sharepoint, para migração de dados para a lista de chamados.",
+		"linkedServiceName": {
+			"referenceName": "SB3_SharePointOnlineList_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SharePointOnlineListResource",
+		"schema": [],
+		"typeProperties": {
+			"listName": "Chamados"
+		}
+	}
+}
