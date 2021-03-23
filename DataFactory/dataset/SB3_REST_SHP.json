@@ -7,9 +7,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"token": {
-				"type": "string"
-			},
 			"relative_url": {
 				"type": "string"
 			}
