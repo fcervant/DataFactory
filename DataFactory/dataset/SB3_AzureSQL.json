@@ -13,7 +13,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "bdlegadosb3",
-			"table": "view_chamados"
+			"table": "tbCtxt02"
 		}
 	}
 }
