@@ -1,0 +1,10 @@
+{
+	"name": "SB3_DBSQL_AZRSQL",
+	"properties": {
+		"description": "Copia base local para base no Azure",
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": []
+	}
+}
