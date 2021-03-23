@@ -12,7 +12,8 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "View_Chamados"
+			"schema": "bdlegadosb3",
+			"table": "view_chamados"
 		}
 	}
 }
