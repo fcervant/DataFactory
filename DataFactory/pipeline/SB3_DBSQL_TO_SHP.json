@@ -46,6 +46,561 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copia SB3 local para SHP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "FileServerReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "RestSink",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": 10,
+						"requestMethod": "POST",
+						"writeBatchSize": 10000,
+						"httpCompressionType": "none"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['CONTEXTO']"
+								},
+								"sink": {
+									"path": "$['CONTEXTO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CHAMADO']"
+								},
+								"sink": {
+									"path": "$['CHAMADO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CASO']"
+								},
+								"sink": {
+									"path": "$['CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ATENDENTE']"
+								},
+								"sink": {
+									"path": "$['ATENDENTE']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_TEMPO_REGISTRO_CHAMADO']"
+								},
+								"sink": {
+									"path": "$['NR_TEMPO_REGISTRO_CHAMADO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['DT_ABERTURA']"
+								},
+								"sink": {
+									"path": "$['DT_ABERTURA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['DT_LIMITE']"
+								},
+								"sink": {
+									"path": "$['DT_LIMITE']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['DT_ATUALIZACAO_CASO']"
+								},
+								"sink": {
+									"path": "$['DT_ATUALIZACAO_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['DT_ATUALIZACAO_CHAMADO']"
+								},
+								"sink": {
+									"path": "$['DT_ATUALIZACAO_CHAMADO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CLIENTE']"
+								},
+								"sink": {
+									"path": "$['CLIENTE']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['INF_ADIC_CLIENTE']"
+								},
+								"sink": {
+									"path": "$['INF_ADIC_CLIENTE']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['LOCALIZACAO']"
+								},
+								"sink": {
+									"path": "$['LOCALIZACAO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RELATOR']"
+								},
+								"sink": {
+									"path": "$['RELATOR']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RELATOR_LOGIN']"
+								},
+								"sink": {
+									"path": "$['RELATOR_LOGIN']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RELATOR_MATRICULA']"
+								},
+								"sink": {
+									"path": "$['RELATOR_MATRICULA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PRIORIDADE']"
+								},
+								"sink": {
+									"path": "$['PRIORIDADE']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['IMPACTO']"
+								},
+								"sink": {
+									"path": "$['IMPACTO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ORIGEM']"
+								},
+								"sink": {
+									"path": "$['ORIGEM']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['STATUS']"
+								},
+								"sink": {
+									"path": "$['STATUS']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['SLA']"
+								},
+								"sink": {
+									"path": "$['SLA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['TIPO']"
+								},
+								"sink": {
+									"path": "$['TIPO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['COMPLEMENTO_1']"
+								},
+								"sink": {
+									"path": "$['COMPLEMENTO_1']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['COMPLEMENTO_2']"
+								},
+								"sink": {
+									"path": "$['COMPLEMENTO_2']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['COMPLEMENTO_3']"
+								},
+								"sink": {
+									"path": "$['COMPLEMENTO_3']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CLASS_ENCERRAMENTO']"
+								},
+								"sink": {
+									"path": "$['CLASS_ENCERRAMENTO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['FASE_CASO']"
+								},
+								"sink": {
+									"path": "$['FASE_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['DESCRICAO']"
+								},
+								"sink": {
+									"path": "$['DESCRICAO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['SOLUCAO']"
+								},
+								"sink": {
+									"path": "$['SOLUCAO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['INF_ADICIONAIS']"
+								},
+								"sink": {
+									"path": "$['INF_ADICIONAIS']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['BEM']"
+								},
+								"sink": {
+									"path": "$['BEM']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CRIADOR']"
+								},
+								"sink": {
+									"path": "$['CRIADOR']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CRIADOR_LOGIN']"
+								},
+								"sink": {
+									"path": "$['CRIADOR_LOGIN']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CRIADOR_MATRICULA']"
+								},
+								"sink": {
+									"path": "$['CRIADOR_MATRICULA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RESPONSAVEL']"
+								},
+								"sink": {
+									"path": "$['RESPONSAVEL']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['GRUPO_RESPONSAVEL']"
+								},
+								"sink": {
+									"path": "$['GRUPO_RESPONSAVEL']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['EMPRESA']"
+								},
+								"sink": {
+									"path": "$['EMPRESA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Empresa_que_demanda_atividade']"
+								},
+								"sink": {
+									"path": "$['Empresa_que_demanda_atividade']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Organizacao_de_Compras']"
+								},
+								"sink": {
+									"path": "$['Organizacao_de_Compras']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Grupo_de_Compras']"
+								},
+								"sink": {
+									"path": "$['Grupo_de_Compras']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Grupo_de_Contas']"
+								},
+								"sink": {
+									"path": "$['Grupo_de_Contas']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Razao_Social_Nome']"
+								},
+								"sink": {
+									"path": "$['Razao_Social_Nome']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['MATRICULA']"
+								},
+								"sink": {
+									"path": "$['MATRICULA']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Rua_Numero']"
+								},
+								"sink": {
+									"path": "$['Rua_Numero']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CEP_CADASTRO']"
+								},
+								"sink": {
+									"path": "$['CEP_CADASTRO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bairro']"
+								},
+								"sink": {
+									"path": "$['Bairro']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Justificativa']"
+								},
+								"sink": {
+									"path": "$['Justificativa']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Motivos_do_Bloqueio']"
+								},
+								"sink": {
+									"path": "$['Motivos_do_Bloqueio']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Volume']"
+								},
+								"sink": {
+									"path": "$['Volume']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_TEMPO_DURACAO_CHAMADO']"
+								},
+								"sink": {
+									"path": "$['NR_TEMPO_DURACAO_CHAMADO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_TEMPO_DURACAO_CASO']"
+								},
+								"sink": {
+									"path": "$['NR_TEMPO_DURACAO_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_TEMPO_DURACAO_CASO_MINUTOS']"
+								},
+								"sink": {
+									"path": "$['NR_TEMPO_DURACAO_CASO_MINUTOS']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_ATRASO_CHAMADO']"
+								},
+								"sink": {
+									"path": "$['NR_ATRASO_CHAMADO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_ATRASO_CASO']"
+								},
+								"sink": {
+									"path": "$['NR_ATRASO_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_ATRASO_DESC_INTERR_CASO']"
+								},
+								"sink": {
+									"path": "$['NR_ATRASO_DESC_INTERR_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['RESPONSAVEL_ENCERR']"
+								},
+								"sink": {
+									"path": "$['RESPONSAVEL_ENCERR']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_ESFORCO_PREVISTO_CALC']"
+								},
+								"sink": {
+									"path": "$['NR_ESFORCO_PREVISTO_CALC']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_ESFORCO_CALC']"
+								},
+								"sink": {
+									"path": "$['NR_ESFORCO_CALC']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['NR_SALDO_CALC']"
+								},
+								"sink": {
+									"path": "$['NR_SALDO_CALC']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['TIPO_CASO']"
+								},
+								"sink": {
+									"path": "$['TIPO_CASO']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['TIPO_CASO_ANTERIOR']"
+								},
+								"sink": {
+									"path": "$['TIPO_CASO_ANTERIOR']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONTADOR']"
+								},
+								"sink": {
+									"path": "$['CONTADOR']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['INF_ADIC_IMPACTO']"
+								},
+								"sink": {
+									"path": "$['INF_ADIC_IMPACTO']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SB3_JSON",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SB3_REST_SHP",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"folder": {
