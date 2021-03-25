@@ -5,6 +5,11 @@
 			"referenceName": "LS_SB3_AzureSQL",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"tbName": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
@@ -13,7 +18,10 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "bdlegadosb3",
-			"table": "tbCtxt01"
+			"table": {
+				"value": "@dataset().tbName",
+				"type": "Expression"
+			}
 		}
 	}
 }
