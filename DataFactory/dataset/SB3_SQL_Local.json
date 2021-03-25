@@ -6,6 +6,11 @@
 			"referenceName": "SB3_LS",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Contexto": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
