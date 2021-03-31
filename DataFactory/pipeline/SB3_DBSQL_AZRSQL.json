@@ -24,7 +24,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "@concat(\"SELECT * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '\",@Contexto,\"'\")",
+							"value": "SELECT * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
