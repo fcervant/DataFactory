@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"tbName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "tbCtx01"
 			}
 		},
 		"folder": {
