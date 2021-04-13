@@ -8,7 +8,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Execute Pipeline1",
+						"activity": "Define contexto",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -31,7 +31,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "SELECT \n        a.ID_CALL_ATTACH,\n\ta.ID_CALL_HD,\n\ta.TX_FILE_NAME,\n\ta.TX_FILE_PATH\nFROM [SB3].[SB3].[CALL_ATTACH] as a\n\n LEFT JOIN [SB3].[SB3].[CALL_HD] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\n\nWHERE a.ID_SEC_CONTEXT = 1",
+							"value": "SELECT \n        a.ID_CALL_ATTACH,\n\ta.ID_CALL_HD,\n\ta.TX_FILE_NAME,\n\ta.TX_FILE_PATH\nFROM [SB3].[SB3].[CALL_ATTACH] as a\n\n LEFT JOIN [SB3].[SB3].[CALL_HD] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\n\nWHERE a.ID_SEC_CONTEXT = 2",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -55,10 +55,7 @@
 				"inputs": [
 					{
 						"referenceName": "SB3_SQL_Local",
-						"type": "DatasetReference",
-						"parameters": {
-							"Contexto": "1"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -66,7 +63,7 @@
 						"referenceName": "SB3_AzureSQL",
 						"type": "DatasetReference",
 						"parameters": {
-							"tbName": "tbCtx01_Anexos"
+							"tbName": "tbCtx02_Anexos"
 						}
 					}
 				]
@@ -81,11 +78,23 @@
 				}
 			},
 			{
-				"name": "Executa pipeline para anexos",
-				"description": "Atenção: pipeline para anexos gera apenas uma tabela por contexto!",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": []
+				"name": "Define contexto",
+				"description": "Atribui contexto para criação da tabela",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [
+					{
+						"name": "vContextoAnexo",
+						"value": ""
+					}
+				]
 			}
 		],
 		"folder": {
