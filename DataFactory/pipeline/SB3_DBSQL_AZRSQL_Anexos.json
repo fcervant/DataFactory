@@ -6,14 +6,7 @@
 			{
 				"name": "Copia dados do SQL Local para SQL Azure - Anexos",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Define contexto",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -55,7 +48,10 @@
 				"inputs": [
 					{
 						"referenceName": "SB3_SQL_Local",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Contexto": "2"
+						}
 					}
 				],
 				"outputs": [
@@ -65,34 +61,6 @@
 						"parameters": {
 							"tbName": "tbCtx02_Anexos"
 						}
-					}
-				]
-			},
-			{
-				"name": "Execute Pipeline1",
-				"type": "ExecutePipeline",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "Define contexto",
-				"description": "Atribui contexto para criação da tabela",
-				"type": "AppendVariable",
-				"dependsOn": [
-					{
-						"activity": "Execute Pipeline1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [
-					{
-						"name": "vContextoAnexo",
-						"value": ""
 					}
 				]
 			}
