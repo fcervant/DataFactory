@@ -24,7 +24,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "SELECT \n        a.ID_CALL_ATTACH,\n\ta.ID_CALL_HD,\n\ta.TX_FILE_NAME,\n\ta.TX_FILE_PATH\nFROM [SB3].[SB3].[CALL_ATTACH] as a\n\n LEFT JOIN [SB3].[SB3].[CALL_HD] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\n\nWHERE a.ID_SEC_CONTEXT = 2",
+							"value": "SELECT \n        a.ID_CALL_ATTACH,\n\ta.ID_CALL_HD,\n\ta.TX_FILE_NAME,\n\ta.TX_FILE_PATH\nFROM [SB3].[SB3].[CALL_ATTACH] as a\n\n LEFT JOIN [SB3].[SB3].[CALL_HD] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\n\nWHERE a.ID_SEC_CONTEXT = 3",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -59,7 +59,7 @@
 						"referenceName": "SB3_AzureSQL",
 						"type": "DatasetReference",
 						"parameters": {
-							"tbName": "tbCtx02_Anexos"
+							"tbName": "tbCtx03_Anexos"
 						}
 					}
 				]
