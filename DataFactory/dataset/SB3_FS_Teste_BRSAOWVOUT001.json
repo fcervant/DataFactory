@@ -1,0 +1,16 @@
+{
+	"name": "SB3_FS_Teste_BRSAOWVOUT001",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SB3_FS_BRSAOWVOUT001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			}
+		}
+	}
+}
