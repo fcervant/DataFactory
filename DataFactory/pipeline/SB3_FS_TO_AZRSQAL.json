@@ -1,0 +1,10 @@
+{
+	"name": "SB3_FS_TO_AZRSQAL",
+	"properties": {
+		"description": "Copia dos arquivos do SB3 para o SQL Server",
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": []
+	}
+}
