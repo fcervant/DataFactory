@@ -20,7 +20,7 @@
 						"type": "BinarySource",
 						"storeSettings": {
 							"type": "FileServerReadSettings",
-							"fileListPath": "1/2020",
+							"fileListPath": "1/2020/*.*",
 							"deleteFilesAfterCompletion": false
 						},
 						"formatSettings": {
