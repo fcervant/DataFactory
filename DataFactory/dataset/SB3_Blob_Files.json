@@ -1,0 +1,22 @@
+{
+	"name": "SB3_Blob_Files",
+	"properties": {
+		"description": "Area no storage do Azure para armazenar arquivos do SB3",
+		"linkedServiceName": {
+			"referenceName": "ls_frctestedatafactory",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "anexos",
+				"container": "sb3"
+			}
+		}
+	}
+}
