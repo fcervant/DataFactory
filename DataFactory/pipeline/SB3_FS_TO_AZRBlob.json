@@ -4,7 +4,7 @@
 		"description": "Copia dos arquivos do SB3 para o SQL Server",
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copia arquivos SB3 para Azure Blob",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
