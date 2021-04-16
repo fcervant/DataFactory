@@ -14,8 +14,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "file_teste",
-				"container": "blob-shptest"
+				"folderPath": "anexos",
+				"container": "sb3"
 			}
 		}
 	}
