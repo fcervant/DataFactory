@@ -2,16 +2,14 @@
 	"name": "SB3_FS_Teste_BRSAOWVOUT001",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_frctestedatafactory",
+			"referenceName": "SB3_FS_BRSAOWVOUT001",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"folderPath": "anexos",
-				"container": "sb3"
+				"type": "FileServerLocation"
 			}
 		}
 	}
