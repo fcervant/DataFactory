@@ -14,8 +14,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "teste.txt",
-				"container": "sb3"
+				"folderPath": "file_teste",
+				"container": "blob-shptest"
 			}
 		}
 	}
