@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\10.9.20.57\\d\\Sb3\\Arquivos\\Attach\\Call",
+			"host": "\\\\BRCWBWHD301VPAR.vpar.votorantim.grupo\\d\\Sb3\\Arquivos\\Attach\\Call",
 			"userId": "vid_vpar\\fernandorc",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4NWZlY2RkOC1kMTkxLTRiNGYtODFmZS01NjA2YzgxYTgxOTUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhMGU5MzY1ZC1iY2JlLTQ2NTQtOTE3Yy1iZmJmMTZiNjQxNmQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRlab021",
