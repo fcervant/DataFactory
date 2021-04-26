@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "Lima_2016",
+				"fileName": "Lima_2017",
 				"folderPath": "data_factory"
 			},
 			"columnDelimiter": ";",
