@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "GestãoFornecedores_CallType_10",
+				"fileName": "GestãoFornecedores_CallType_10.csv",
 				"folderPath": "data_factory"
 			},
 			"columnDelimiter": ";",
