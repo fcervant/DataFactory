@@ -59,7 +59,7 @@
 						"referenceName": "SB3_AzureSQL",
 						"type": "DatasetReference",
 						"parameters": {
-							"tbName": "tbCtx03"
+							"tbName": "tbCtx04"
 						}
 					}
 				]
