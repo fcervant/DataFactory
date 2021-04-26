@@ -23,7 +23,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [bdlegadosb3].[tbCtx03] where YEAR= '2016'",
+						"sqlReaderQuery": "SELECT * FROM [bdlegadosb3].[tbCtx03] where YEAR= '2017'",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
