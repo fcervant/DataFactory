@@ -1,0 +1,73 @@
+{
+	"name": "SB3_AZRSQL_TO_Excel",
+	"properties": {
+		"description": "Copia dados do SB3 SQL Azure para o Excel - formato CSV",
+		"activities": [
+			{
+				"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Contexto",
+						"value": "0"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT * FROM [bdlegadosb3].[tbCtx03] where YEAR= '2016'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SB3_AzureSQL",
+						"type": "DatasetReference",
+						"parameters": {
+							"tbName": "tbCtx03"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SB3_CSV",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": []
+	}
+}
