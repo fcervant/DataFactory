@@ -23,7 +23,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * FROM [bdlegadosb3].[tbCtx02] where id_call_type like ('10.%')",
+						"sqlReaderQuery": "*** SELECT * FROM [bdlegadosb3].[tbCtx02] where id_call_type like ('6.0%')",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
