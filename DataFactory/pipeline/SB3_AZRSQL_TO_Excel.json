@@ -6,7 +6,14 @@
 			{
 				"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Contexto",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -23,7 +30,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "*** SELECT * FROM [bdlegadosb3].[tbCtx02] where id_call_type like ('6.0%')",
+						"sqlReaderQuery": {
+							"value": "SELECT count(*) from @variables('vTableName')",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -63,8 +73,32 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Contexto",
+				"description": "Define o contexto que será utilizado na query.",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vTableName",
+					"value": {
+						"value": "@\"[bdlegadosb3].[tbCtx\"&variables('vContexto')\"]\"",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"vContexto": {
+				"type": "String",
+				"defaultValue": "01"
+			},
+			"vTableName": {
+				"type": "String",
+				"defaultValue": " [bdlegadosb3].[tbCtx]"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
