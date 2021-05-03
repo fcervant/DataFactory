@@ -86,7 +86,7 @@
 				"typeProperties": {
 					"variableName": "vTableName",
 					"value": {
-						"value": "@\"[bdlegadosb3].[tbCtx\"&variables('vContexto')\"]\"",
+						"value": "tbCxt01",
 						"type": "Expression"
 					}
 				}
