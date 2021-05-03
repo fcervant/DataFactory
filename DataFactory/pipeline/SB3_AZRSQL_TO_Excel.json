@@ -96,7 +96,7 @@
 			},
 			"vTableName": {
 				"type": "String",
-				"defaultValue": " [bdlegadosb3].[tbCtx]"
+				"defaultValue": "[bdlegadosb3].[tbCtx]"
 			}
 		},
 		"folder": {
