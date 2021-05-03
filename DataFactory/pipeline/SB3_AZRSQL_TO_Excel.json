@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT count(*) from @variables('vTableName')",
+							"value": "@SELECT count(*) from variables('vTableName')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -63,7 +63,10 @@
 						"referenceName": "SB3_AzureSQL",
 						"type": "DatasetReference",
 						"parameters": {
-							"tbName": "tbCtx02"
+							"tbName": {
+								"value": "@variables('vTableName')",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -96,7 +99,7 @@
 			},
 			"vTableName": {
 				"type": "String",
-				"defaultValue": "[bdlegadosb3].[tbCtx]"
+				"defaultValue": "[bdlegadosb3].[tbCtx01]"
 			}
 		},
 		"folder": {
