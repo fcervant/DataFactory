@@ -5,15 +5,6 @@
 			"referenceName": "LS_SB3_AzureSQL",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"tbName": {
-				"type": "string",
-				"defaultValue": "tbCtx01"
-			},
-			"query": {
-				"type": "string"
-			}
-		},
 		"folder": {
 			"name": "SB3"
 		},
