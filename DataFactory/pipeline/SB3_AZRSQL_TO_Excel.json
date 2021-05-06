@@ -61,7 +61,13 @@
 				"inputs": [
 					{
 						"referenceName": "SB3_AzureSQL",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"tbName": {
+								"value": "@concat('tbCtx',variables('vContexto'))",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
@@ -95,7 +101,7 @@
 		"variables": {
 			"vContexto": {
 				"type": "String",
-				"defaultValue": "01"
+				"defaultValue": "02"
 			},
 			"vTableName": {
 				"type": "String",
