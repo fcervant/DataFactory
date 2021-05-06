@@ -69,7 +69,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"cvs_fileName": {
-								"value": "@concat('SB3_CVSFile_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
+								"value": "@concat('SB3_CVSFile_','teste','.csv')",
 								"type": "Expression"
 							}
 						}
