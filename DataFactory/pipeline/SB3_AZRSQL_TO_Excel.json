@@ -76,7 +76,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"cvs_fileName": {
-								"value": "concat(\"SB3_CVSFile_\",\"2020\",\"_\",\"01\")",
+								"value": "@concat('SB3_CVSFile_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
 								"type": "Expression"
 							}
 						}
