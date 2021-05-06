@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "Teste_CSV",
+				"fileName": "Teste_CSV.csv",
 				"folderPath": "SB3_CSV_Files"
 			},
 			"columnDelimiter": ";",
