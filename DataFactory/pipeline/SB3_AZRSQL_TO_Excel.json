@@ -113,7 +113,7 @@
 			},
 			"vMes": {
 				"type": "String",
-				"defaultValue": "01"
+				"defaultValue": "02"
 			}
 		},
 		"folder": {
