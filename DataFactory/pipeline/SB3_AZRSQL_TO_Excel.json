@@ -64,7 +64,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"tbName": {
-								"value": "@concat('[bdlegadosb3].[tbCtx',variables('vAno'),']')",
+								"value": "[bdlegadosb3].[tbCtx01]",
 								"type": "Expression"
 							}
 						}
