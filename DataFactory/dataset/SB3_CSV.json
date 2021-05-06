@@ -13,8 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "Dados_Teste.csv",
-				"folderPath": "data_factory"
+				"fileName": "Teste_CSV",
+				"folderPath": "SB3_CSV_Files"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
