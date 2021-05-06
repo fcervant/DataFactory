@@ -5,6 +5,11 @@
 			"referenceName": "FileServer_Source",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"cvs_fileName": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
