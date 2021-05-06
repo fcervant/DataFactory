@@ -18,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "Teste_CSV.csv",
+				"fileName": {
+					"value": "@dataset().cvs_fileName",
+					"type": "Expression"
+				},
 				"folderPath": "SB3_CSV_Files"
 			},
 			"columnDelimiter": ";",
