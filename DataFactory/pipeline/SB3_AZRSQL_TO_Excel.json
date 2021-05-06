@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT  \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH\nFROM [bdlegadosb3].[tbCtx01_Anexos] as a\nLEFT JOIN [bdlegadosb3].[tbCtx01] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\nWHERE ch.DT_MES = '1' AND YEAR = 2020 \norder by ch.DT_CALL_OPENING ASC",
+							"value": "SELECT  \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH\nFROM [bdlegadosb3].[tbCtx01_Anexos] as a\nLEFT JOIN [bdlegadosb3].[tbCtx01] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\nWHERE ch.DT_MES = '1' AND YEAR = 2015 \norder by ch.DT_CALL_OPENING ASC",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -73,7 +73,13 @@
 				"outputs": [
 					{
 						"referenceName": "SB3_CSV",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"cvs_fileName": {
+								"value": "concat(\"SB3_CVSFile_\",\"2015\",\"_\",\"01\")",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
