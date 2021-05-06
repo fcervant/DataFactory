@@ -9,6 +9,9 @@
 			"tbName": {
 				"type": "string",
 				"defaultValue": "tbCtx01"
+			},
+			"query": {
+				"type": "string"
 			}
 		},
 		"folder": {
