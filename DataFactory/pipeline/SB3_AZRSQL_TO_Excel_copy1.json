@@ -1,0 +1,103 @@
+{
+	"name": "SB3_AZRSQL_TO_Excel_copy1",
+	"properties": {
+		"description": "Copia dados do SB3 SQL Azure para o Excel - formato CSV",
+		"activities": [
+			{
+				"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Contexto",
+						"value": "0"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@SELECT \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH\nFROM [bdlegadosb3].[tbCtx01_Anexos] as a \nLEFT JOIN [bdlegadosb3].[tbCtx01] AS ch \n    ON ch.ID_CALL_HD = a.ID_CALL_HD\nWHERE ch.DT_MES = '01' AND YEAR = '2015'\n    ORDER BY ch.DT_CALL_OPENING ASC",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SB3_AzureSQL",
+						"type": "DatasetReference",
+						"parameters": {
+							"tbName": {
+								"value": "[bdlegadosb3].[tbCtx01]",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SB3_CSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"cvs_fileName": {
+								"value": "@concat('SB3_CVSFile_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"vContexto": {
+				"type": "String",
+				"defaultValue": "01"
+			},
+			"vTableName": {
+				"type": "String",
+				"defaultValue": "tbCtx01"
+			},
+			"vAno": {
+				"type": "String",
+				"defaultValue": "2015"
+			},
+			"vMes": {
+				"type": "String",
+				"defaultValue": "03"
+			}
+		},
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": []
+	}
+}
