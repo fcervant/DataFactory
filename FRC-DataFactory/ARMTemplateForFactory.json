@@ -1048,6 +1048,21 @@
 				"parameters": {
 					"WaitTime": {
 						"type": "int"
+					},
+					"contexto": {
+						"type": "string"
+					},
+					"tbChamados": {
+						"type": "string"
+					},
+					"tbAnexos": {
+						"type": "string"
+					},
+					"mes": {
+						"type": "string"
+					},
+					"ano": {
+						"type": "string"
 					}
 				},
 				"folder": {
