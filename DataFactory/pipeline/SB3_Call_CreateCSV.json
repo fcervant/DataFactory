@@ -2,6 +2,25 @@
 	"name": "SB3_Call_CreateCSV",
 	"properties": {
 		"description": "Pipeline para criação de arquivos CSV",
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.WaitTime",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"WaitTime": {
+				"type": "int"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
