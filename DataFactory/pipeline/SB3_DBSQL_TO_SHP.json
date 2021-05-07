@@ -37,7 +37,10 @@
 				"inputs": [
 					{
 						"referenceName": "SB3_SQL_Local",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"Contexto": "01"
+						}
 					}
 				],
 				"outputs": [
