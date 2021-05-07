@@ -113,7 +113,7 @@
 			},
 			"vMes": {
 				"type": "String",
-				"defaultValue": "01"
+				"defaultValue": "1"
 			},
 			"vTableAnexos": {
 				"type": "String",
