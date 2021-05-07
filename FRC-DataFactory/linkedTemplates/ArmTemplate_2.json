@@ -1087,24 +1087,19 @@
 				],
 				"variables": {
 					"vContexto": {
-						"type": "String",
-						"defaultValue": "02"
+						"type": "String"
 					},
 					"vTableChamados": {
-						"type": "String",
-						"defaultValue": "tbCtx02"
+						"type": "String"
 					},
 					"vAno": {
-						"type": "String",
-						"defaultValue": "2020"
+						"type": "String"
 					},
 					"vMes": {
-						"type": "String",
-						"defaultValue": "1"
+						"type": "String"
 					},
 					"vTableAnexos": {
-						"type": "String",
-						"defaultValue": "tbCtx02_Anexos"
+						"type": "String"
 					}
 				},
 				"folder": {
