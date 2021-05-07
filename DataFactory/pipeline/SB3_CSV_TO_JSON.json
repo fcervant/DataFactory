@@ -370,7 +370,10 @@
 				"inputs": [
 					{
 						"referenceName": "SB3_CSV",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"cvs_fileName": "teste.csv"
+						}
 					}
 				],
 				"outputs": [
