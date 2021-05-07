@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT top(500) \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.ID_SEC_CONTEXT,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH,\n    ch.YEAR,\n    ch.DT_MES\nFROM @{variables('vTableAnexos')} as a \nLEFT JOIN @{variables('vTableChamados')} AS ch \n\tON ch.ID_CALL_HD = a.ID_CALL_HD \nWHERE ch.DT_MES = @{variables('vMes')} AND ch.YEAR = @{variables('vAno')} \nORDER BY ch.DT_CALL_OPENING ASC",
+							"value": "SELECT top(500) \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.ID_SEC_CONTEXT,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH,\n    ch.YEAR,\n    ch.DT_MES\nFROM @{concat('[bdlegadosb3].[',variables('vTableAnexos'),']')} as a \nLEFT JOIN @{concat('[bdlegadosb3].[',variables('vTableChamados'),']')} AS ch \n\tON ch.ID_CALL_HD = a.ID_CALL_HD \nWHERE ch.DT_MES = @{variables('vMes')} AND ch.YEAR = @{variables('vAno')} \nORDER BY ch.DT_CALL_OPENING ASC",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
