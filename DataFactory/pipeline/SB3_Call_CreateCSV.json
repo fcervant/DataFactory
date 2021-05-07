@@ -1,0 +1,10 @@
+{
+	"name": "SB3_Call_CreateCSV",
+	"properties": {
+		"description": "Pipeline para criação de arquivos CSV",
+		"folder": {
+			"name": "SB3"
+		},
+		"annotations": []
+	}
+}
