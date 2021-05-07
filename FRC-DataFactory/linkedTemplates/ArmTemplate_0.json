@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "FRC-DataFactory"
 		},
+		"DEMO_AzureBlobStorage_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'DEMO_AzureBlobStorage'"
+		},
+		"LS_SB3_AzureSQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SB3_AzureSQL'"
+		},
 		"PortalAprovacoesQA_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'PortalAprovacoesQA'"
@@ -19,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'RestServiceSHPDecConf'"
 		},
+		"SB3_SharePointOnlineList_LS_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SB3_SharePointOnlineList_LS'"
+		},
 		"ftp_W7LAB_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ftp_W7LAB'"
@@ -26,26 +38,6 @@
 		"ls_frctestedatafactory_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_frctestedatafactory'"
-		},
-		"DEMO_AzureBlobStorage_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DEMO_AzureBlobStorage'"
-		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
-		"PA_QA_SqlServer_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'PA_QA_SqlServer'"
-		},
-		"RestServiceSHPTest_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'RestServiceSHPTest'"
-		},
-		"SB3_LS_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SB3_LS'"
 		},
 		"DEMO_RestService_properties_typeProperties_url": {
 			"type": "string",
@@ -71,6 +63,10 @@
 			"type": "string",
 			"defaultValue": "http://ccti.portalvotorantim.com.br/sites/seguranca/termosEcondicoes/_api/Web/Lists(guid'6C1BFF50-89A3-4B36-B473-0F0632A8B30C')/items?$select=Title"
 		},
+		"SB3_SharePointOnlineList_LS_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "0be6c3d7-1156-4385-9524-9d37605c6ceb"
+		},
 		"ftp_W7LAB_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "10.9.12.167"
@@ -78,20 +74,57 @@
 		"ftp_W7LAB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "fernandorc"
-		},
-		"RestServiceSHPTest_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web/Lists(guid'006e5052-ad56-476f-b1f4-cb61e65695f6')/items"
-		},
-		"RestServiceSHPTest_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "vid_vpar\\fernandorc"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_Call_CreateCSV')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Pipeline para criação de arquivos CSV",
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": {
+								"value": "@pipeline().parameters.WaitTime",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"WaitTime": {
+						"type": "int"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DEMO_AzureBlobStorage')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('DEMO_AzureBlobStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DEMO_RestService')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -104,6 +137,20 @@
 					"url": "[parameters('DEMO_RestService_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SB3_AzureSQL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Conexão ao SQL Azure para LegadosSB3",
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SB3_AzureSQL_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -180,6 +227,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SB3_SharePointOnlineList_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "LS para conexão com lista do Sharepoint para carga das informações do SB3",
+				"annotations": [],
+				"type": "SharePointOnlineList",
+				"typeProperties": {
+					"siteUrl": "https://votorantimindustrial.sharepoint.com/sites/novastecnologiasvsa/legadosb3/",
+					"tenantId": "49158df8-04df-4db2-a1ae-ee3949ca3984",
+					"servicePrincipalId": "[parameters('SB3_SharePointOnlineList_LS_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('SB3_SharePointOnlineList_LS_servicePrincipalKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ftp_W7LAB')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -228,19 +295,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DEMO_AzureBlobStorage')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('DEMO_AzureBlobStorage_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/BLOB_Json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -280,6 +334,31 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DEMO_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DEMO_AzureBlobStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "DEMO_Teste",
+						"folderPath": "demo",
+						"container": "demo"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/DEMO_AzureBlobStorage')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DEMO_RestResource')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -305,6 +384,19 @@
 				"linkedServiceName": {
 					"referenceName": "REST_SB3_Sharepoint",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Accept": {
+						"type": "string",
+						"defaultValue": "application/json;odata=verbose"
+					},
+					"Content-Type": {
+						"type": "string",
+						"defaultValue": "application/json;odata=verbose"
+					}
+				},
+				"folder": {
+					"name": "SB3"
 				},
 				"annotations": [],
 				"type": "RestResource",
@@ -364,133 +456,63 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SQL_PortalAprovacoes')]",
+			"name": "[concat(parameters('factoryName'), '/SB3_AzureSQL')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "PortalAprovacoesQA",
+					"referenceName": "LS_SB3_AzureSQL",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/PortalAprovacoesQA')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "teste",
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "IRlab021",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/IRlab021')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PA_QA_SqlServer')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "SQL Server do Portal de Aprovacoes, ambiente de QA",
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('PA_QA_SqlServer_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "IRlab021",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/IRlab021')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RestServiceSHPTest')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Teste com acesso a api REST do Sharepoint ",
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('RestServiceSHPTest_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('RestServiceSHPTest_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('RestServiceSHPTest_password')]"
+				"parameters": {
+					"tbName": {
+						"type": "string",
+						"defaultValue": "tbCtx01"
 					}
 				},
-				"connectVia": {
-					"referenceName": "IRlab021",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/IRlab021')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SB3_LS')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Linked Service para conexão com o bando de dados do SB3",
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('SB3_LS_connectionString')]"
+				"folder": {
+					"name": "SB3"
 				},
-				"connectVia": {
-					"referenceName": "IRlab021",
-					"type": "IntegrationRuntimeReference"
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "bdlegadosb3",
+					"table": {
+						"value": "@dataset().tbName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/IRlab021')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SB3_AzureSQL')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DEMO_Json')]",
+			"name": "[concat(parameters('factoryName'), '/SB3_Blob_Files')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Area no storage do Azure para armazenar arquivos do SB3",
 				"linkedServiceName": {
-					"referenceName": "DEMO_AzureBlobStorage",
+					"referenceName": "ls_frctestedatafactory",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "SB3"
+				},
 				"annotations": [],
-				"type": "Json",
+				"type": "Binary",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "DEMO_Teste",
-						"folderPath": "demo",
-						"container": "demo"
+						"folderPath": "anexos",
+						"container": "sb3"
 					}
-				},
-				"schema": {}
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/DEMO_AzureBlobStorage')]"
+				"[concat(variables('factoryId'), '/linkedServices/ls_frctestedatafactory')]"
 			]
 		}
 	]

@@ -1,0 +1,3034 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "FRC-DataFactory"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_JSON')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "FileServer_Source",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "contexto01_JSON.txt",
+						"folderPath": "data_factory"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_LocalFiles')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SB3_FileServer",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_REST_SHP')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acesso Sharepoint on-line site LegadoSB3, lista Chamados",
+				"linkedServiceName": {
+					"referenceName": "RestServiceSHPTest",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"relative_url": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "@dataset().relative_url",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_SQL_Local')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acessa base SB3 on-premise, servidor 10.9.20.74,1433",
+				"linkedServiceName": {
+					"referenceName": "SB3_LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Contexto": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "CHAMADO",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 0
+					},
+					{
+						"name": "CASO",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 0
+					},
+					{
+						"name": "ATENDENTE",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_TEMPO_REGISTRO_CHAMADO",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_ABERTURA",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HR_ABERTURA",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_LIMITE",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HR_LIMITE",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_ATUALIZACAO_CASO",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HR_ATUALIZACAO_CASO",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_ATUALIZACAO_CHAMADO",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HR_ATUALIZACAO_CHAMADO",
+						"type": "varchar"
+					},
+					{
+						"name": "CLIENTE",
+						"type": "varchar"
+					},
+					{
+						"name": "LOCALIZACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "RELATOR",
+						"type": "varchar"
+					},
+					{
+						"name": "PRIORIDADE",
+						"type": "varchar"
+					},
+					{
+						"name": "IMPACTO",
+						"type": "varchar"
+					},
+					{
+						"name": "STATUS",
+						"type": "varchar"
+					},
+					{
+						"name": "SLA",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO",
+						"type": "varchar"
+					},
+					{
+						"name": "CLASS_ENCERRAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "FASE_CASO",
+						"type": "varchar"
+					},
+					{
+						"name": "SOLUCAO",
+						"type": "varchar"
+					},
+					{
+						"name": "DESCRICAO",
+						"type": "varchar"
+					},
+					{
+						"name": "INF_ADICIONAIS",
+						"type": "varchar"
+					},
+					{
+						"name": "RESPONSAVEL",
+						"type": "varchar"
+					},
+					{
+						"name": "RESPONSAVEL_ENCERRAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "GRUPO_RESPONSAVEL",
+						"type": "varchar"
+					},
+					{
+						"name": "APROVACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "REABERTURA",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_TEMPO_DURACAO_CHAMADO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_TEMPO_DURACAO_CASO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_ATRASO_CHAMADO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_ATRASO_CASO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_ATRASO_DESC_INTERR",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_ESFORCO_PREVISTO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_ESFORCO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_SALDO_ESFORCO",
+						"type": "varchar"
+					},
+					{
+						"name": "CONTADOR",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "TREINAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "VOLUME_CHAMADO",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "CHAMADO_ORIGINAL",
+						"type": "varchar"
+					},
+					{
+						"name": "SOLIC_INTERJ_FPONTO",
+						"type": "varchar"
+					},
+					{
+						"name": "EXCECAO",
+						"type": "varchar"
+					},
+					{
+						"name": "EMPRESA_SAP",
+						"type": "varchar"
+					},
+					{
+						"name": "COMPETENCIAS",
+						"type": "varchar"
+					},
+					{
+						"name": "MATRICULA",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME",
+						"type": "varchar"
+					},
+					{
+						"name": "CPF",
+						"type": "varchar"
+					},
+					{
+						"name": "ANO",
+						"type": "varchar"
+					},
+					{
+						"name": "AREA_RH",
+						"type": "varchar"
+					},
+					{
+						"name": "PRAZO",
+						"type": "varchar"
+					},
+					{
+						"name": "PERIODO",
+						"type": "varchar"
+					},
+					{
+						"name": "MOTIVO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_RH",
+						"type": "varchar"
+					},
+					{
+						"name": "MOTIVO_EXP_REP",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_INSAL_PERIC",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA",
+						"type": "varchar"
+					},
+					{
+						"name": "PAIS_DESTINO",
+						"type": "varchar"
+					},
+					{
+						"name": "SALDO_DEVEDOR",
+						"type": "varchar"
+					},
+					{
+						"name": "NUM_FORPONTO",
+						"type": "varchar"
+					},
+					{
+						"name": "NUM_PARCELAS",
+						"type": "varchar"
+					},
+					{
+						"name": "UNI_FORPONTO",
+						"type": "varchar"
+					},
+					{
+						"name": "PERCENTUAL",
+						"type": "varchar"
+					},
+					{
+						"name": "COD_SINDICATO",
+						"type": "varchar"
+					},
+					{
+						"name": "ACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_REINTEG",
+						"type": "varchar"
+					},
+					{
+						"name": "NUM_POSICAO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_CREDITO",
+						"type": "varchar"
+					},
+					{
+						"name": "VALOR",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_PGTO",
+						"type": "varchar"
+					},
+					{
+						"name": "BANCO",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_COLABORADOR",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_AFASTAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_PENSIONISTA",
+						"type": "varchar"
+					},
+					{
+						"name": "MOTIVO_SOLIC_2",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_ADTO_QUINZ",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_ADMISSAO",
+						"type": "varchar"
+					},
+					{
+						"name": "PLANO_MEDICO",
+						"type": "varchar"
+					},
+					{
+						"name": "PLANO_ODONTO",
+						"type": "varchar"
+					},
+					{
+						"name": "RECLAMANTE",
+						"type": "varchar"
+					},
+					{
+						"name": "RECEM_NASCIDO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_NASCIMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_REEMBOLSO",
+						"type": "varchar"
+					},
+					{
+						"name": "SOLICIT",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_DCTO",
+						"type": "varchar"
+					},
+					{
+						"name": "REQUERIMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "MES_VIGENTE",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_BENEF",
+						"type": "varchar"
+					},
+					{
+						"name": "PRAZO_INSC",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_IMPORT",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_PLANO",
+						"type": "varchar"
+					},
+					{
+						"name": "VIGENCIA",
+						"type": "varchar"
+					},
+					{
+						"name": "CURSO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_FATURA",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_TREINAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_ATUALIZACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_DECLARACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_DOCUMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_INI_CURSO",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_INSTITUICAO",
+						"type": "varchar"
+					},
+					{
+						"name": "TEL_CONTATO",
+						"type": "varchar"
+					},
+					{
+						"name": "SITE",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_ALTERACAO",
+						"type": "varchar"
+					},
+					{
+						"name": "GESTOR",
+						"type": "varchar"
+					},
+					{
+						"name": "UNI_NOTA_PERTENCE",
+						"type": "varchar"
+					},
+					{
+						"name": "FORNECEDOR",
+						"type": "varchar"
+					},
+					{
+						"name": "RG",
+						"type": "varchar"
+					},
+					{
+						"name": "RESPONSAVEL2",
+						"type": "varchar"
+					},
+					{
+						"name": "CENTRO_CUSTO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_FINAL_UTILI",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_VENC",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_BASE",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_ACORD_COLETIVO",
+						"type": "varchar"
+					},
+					{
+						"name": "EXCECAO_BENEF",
+						"type": "varchar"
+					},
+					{
+						"name": "VALOR_NF",
+						"type": "varchar"
+					},
+					{
+						"name": "GESTOR_ORIGEM",
+						"type": "varchar"
+					},
+					{
+						"name": "GESTOR_DESTINO",
+						"type": "varchar"
+					},
+					{
+						"name": "EMAIL",
+						"type": "varchar"
+					},
+					{
+						"name": "LOGIN_REDE",
+						"type": "varchar"
+					},
+					{
+						"name": "VOLUME1",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_BENEFI",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_AFAST_RETOR",
+						"type": "varchar"
+					},
+					{
+						"name": "MOTIVO_13",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_VIG_BENEF",
+						"type": "varchar"
+					},
+					{
+						"name": "INST_FINANCEIRA",
+						"type": "varchar"
+					},
+					{
+						"name": "MOTIVO_SOLIC",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_BENEF_VT",
+						"type": "varchar"
+					},
+					{
+						"name": "REGIONAL",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_REEEMB_SUBSIDIO",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_SINDICATO",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_ABREVI",
+						"type": "varchar"
+					},
+					{
+						"name": "CNPJ_SINDICATO",
+						"type": "varchar"
+					},
+					{
+						"name": "END_SINDICATO",
+						"type": "varchar"
+					},
+					{
+						"name": "CIDADE",
+						"type": "varchar"
+					},
+					{
+						"name": "CEP",
+						"type": "varchar"
+					},
+					{
+						"name": "COD_ENTID_SINDICATO",
+						"type": "varchar"
+					},
+					{
+						"name": "PISO_CATEGORIA",
+						"type": "varchar"
+					},
+					{
+						"name": "SINDICATO_ESPELHO",
+						"type": "varchar"
+					},
+					{
+						"name": "UF",
+						"type": "varchar"
+					},
+					{
+						"name": "ELEG_PLANO",
+						"type": "varchar"
+					},
+					{
+						"name": "VALOR_ANTIGO_PLANO",
+						"type": "varchar"
+					},
+					{
+						"name": "VALOR_ATUAL_PLANO",
+						"type": "varchar"
+					},
+					{
+						"name": "TIPO_SOLIC",
+						"type": "varchar"
+					},
+					{
+						"name": "ALTER_BENEFIC",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_ADM_CADASTRADA",
+						"type": "varchar"
+					},
+					{
+						"name": "ALTERAR_DATA_PARA",
+						"type": "varchar"
+					},
+					{
+						"name": "TX_MATRICULA",
+						"type": "varchar"
+					},
+					{
+						"name": "TX_DT_DESLIGAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "PARENTESCO",
+						"type": "varchar"
+					},
+					{
+						"name": "DATA_NASC_PENSIONISTA",
+						"type": "varchar"
+					},
+					{
+						"name": "VOLUME",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DT_DESLIGAMENTO",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_PGTO",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_EDICAO",
+						"type": "varchar"
+					},
+					{
+						"name": "DT_KIT",
+						"type": "varchar"
+					},
+					{
+						"name": "NOME_RESPONSAVEL",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "SB3",
+					"table": "VIEW_CHAMADO_COMPLETO_CXT_DHO_ALL_DINAMICOS"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_ute')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "FileServer_Source",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Demo_2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copy data from a REST API",
+				"activities": [
+					{
+						"name": "Copy data from SB3 to DEMO_JSON",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "select p.ID_SEC_PERSON,p.TX_LOGIN,p.TX_NAME,c.ID_CUSTOMER,c.TX_CUSTOMER_NAME\nfrom [SB3].[SB3].[SEC_PERSON] p\ninner join [SB3].[SB3].[SEC_PERSON_CUSTOMER] pc on p.ID_SEC_PERSON = pc.ID_SEC_PERSON_REPORTER\ninner join [SB3].[SB3].[CUSTOMER] c on c.ID_CUSTOMER = pc.ID_CUSTOMER\nwhere p.TX_EMAIL1 LIKE 'fernando%'\nand pc.ID_SEC_CONTEXT = 5;",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ID_SEC_PERSON",
+											"type": "Decimal"
+										},
+										"sink": {
+											"path": "$['ID_SEC_PERSON']"
+										}
+									},
+									{
+										"source": {
+											"name": "TX_LOGIN",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['TX_LOGIN']"
+										}
+									},
+									{
+										"source": {
+											"name": "TX_NAME",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['TX_NAME']"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DEMO_Json",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FileServerCopyData')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_ute",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "/"
+							},
+							{
+								"name": "Destination",
+								"value": "test//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"maxConcurrentConnections": 2,
+									"recursive": true,
+									"wildcardFileName": "*",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "FlattenHierarchy"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"skipErrorFile": {
+								"fileMissing": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_ute",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_ute",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_ute')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_AZRBlob_TO_FS_Teste')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia dos arquivos do blob para o file server",
+				"activities": [
+					{
+						"name": "Copia dos arquivos do blob para o file server",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"fileListPath": "sb3/anexos",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_Blob_Files",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_FS_Teste_BRSAOWVOUT001",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_AZRSQL_TO_Excel')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia dados do SB3 SQL Azure para o Excel - formato CSV",
+				"activities": [
+					{
+						"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Contexto",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT top(500) \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.ID_SEC_CONTEXT,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH,\n    ch.YEAR,\n    ch.DT_MES\nFROM @{concat('[bdlegadosb3].[',variables('vTableAnexos'),']')} as a \nLEFT JOIN @{concat('[bdlegadosb3].[',variables('vTableChamados'),']')} AS ch \n\tON ch.ID_CALL_HD = a.ID_CALL_HD \nWHERE ch.DT_MES = @{variables('vMes')} AND ch.YEAR = @{variables('vAno')} \nORDER BY ch.DT_CALL_OPENING ASC",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": {
+										"value": "@concat('tbCtx',variables('vContexto'))",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": {
+										"value": "@concat('SB3_CVS_CTXT',variables('vContexto'),'_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Contexto",
+						"description": "Define o contexto que será utilizado na query.",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "vContexto",
+							"value": {
+								"value": "''",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"variables": {
+					"vContexto": {
+						"type": "String",
+						"defaultValue": "02"
+					},
+					"vTableChamados": {
+						"type": "String",
+						"defaultValue": "tbCtx02"
+					},
+					"vAno": {
+						"type": "String",
+						"defaultValue": "2020"
+					},
+					"vMes": {
+						"type": "String",
+						"defaultValue": "1"
+					},
+					"vTableAnexos": {
+						"type": "String",
+						"defaultValue": "tbCtx02_Anexos"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_CSV_TO_JSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SB3_CSV",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings",
+									"filePattern": "arrayOfObjects"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ID_CALL_HD",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_HD']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_SEC_CONTEXT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_SEC_CONTEXT']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_SEC_PERSON_REPORTER",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_SEC_PERSON_REPORTER']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_SEC_PERSON_ATTENDANT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_SEC_PERSON_ATTENDANT']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_TYPE",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_TYPE']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_IMPACT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_IMPACT']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_PRIORITY",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_PRIORITY']"
+										}
+									},
+									{
+										"source": {
+											"name": "TX_CALL_DESCRIPTION",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['TX_CALL_DESCRIPTION']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CALL_OPENING",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CALL_OPENING']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CALL_REGISTER",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CALL_REGISTER']"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_TIME_DURATION",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['NR_TIME_DURATION']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CUSTOMER",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CUSTOMER']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_STATUS",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_STATUS']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_RETURN",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_RETURN']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CALL_RETURN",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CALL_RETURN']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_ORIGIN",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_ORIGIN']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CALL_ORIGIN",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CALL_ORIGIN']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CALL_LIMIT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CALL_LIMIT']"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_TIME_SERVICE",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['NR_TIME_SERVICE']"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_EFFORT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['NR_EFFORT']"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_DELAY",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['NR_DELAY']"
+										}
+									},
+									{
+										"source": {
+											"name": "BO_TIME_CALCULATED",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['BO_TIME_CALCULATED']"
+										}
+									},
+									{
+										"source": {
+											"name": "TX_CLOSING_SOURCE",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['TX_CLOSING_SOURCE']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_LAST_CALCULATION",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_LAST_CALCULATION']"
+										}
+									},
+									{
+										"source": {
+											"name": "TX_SOURCE_LAST_CALCULATION",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['TX_SOURCE_LAST_CALCULATION']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_COMPLEMENT_01",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_COMPLEMENT_01']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_COMPLEMENT_02",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_COMPLEMENT_02']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_COMPLEMENT_03",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_COMPLEMENT_03']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CALL_PHASE",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CALL_PHASE']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_CREATION",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_CREATION']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_SEC_PERSON_CREATOR",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_SEC_PERSON_CREATOR']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_MODIFY",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_MODIFY']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_SEC_PERSON_MODIFIER",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_SEC_PERSON_MODIFIER']"
+										}
+									},
+									{
+										"source": {
+											"name": "ID_CHAT",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['ID_CHAT']"
+										}
+									},
+									{
+										"source": {
+											"name": "CD_DETACHMENT_PROCESS",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['CD_DETACHMENT_PROCESS']"
+										}
+									},
+									{
+										"source": {
+											"name": "DT_DETACHMENT_PROCESS",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['DT_DETACHMENT_PROCESS']"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": "teste.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_JSON')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_AZRSQL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia base local para base no Azure",
+				"activities": [
+					{
+						"name": "Copia dados do SQL Local para SQL Azure",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT FORMAT(ch.DT_CALL_OPENING, 'yyyy') AS YEAR,\n\tCAST(ch.ID_CALL_HD AS CHAR(13)) AS ID_CALL_HD,\n\tCONVERT(int,CAST(ch.DT_CALL_OPENING as datetime)) AS DT_CALL_OPENING_VALUE,\n\tCAST(MONTH(ch.DT_CALL_OPENING) AS CHAR(2)) AS DT_MES,\n\tsc.TX_SEC_CONTEXT AS ID_SEC_CONTEXT,\n\tspr.TX_LOGIN + ':' + spr.TX_NAME AS ID_SEC_PERSON_REPORTER,\n\tspa.TX_LOGIN + ':' + spr.TX_NAME AS ID_SEC_PERSON_ATTENDANT,\n\tct.TX_CALL_TYPE AS ID_CALL_TYPE,\n\ti.TX_IMPACT AS ID_IMPACT,\n\tp.TX_PRIORITY AS ID_PRIORITY,\n\tch.TX_CALL_DESCRIPTION,\n\tch.DT_CALL_OPENING,\n\tch.DT_CALL_REGISTER,\n\tch.NR_TIME_DURATION,\n\tCONVERT(VARCHAR(MAX),c.ID_PLACE) + ':' + c.TX_CUSTOMER_NAME AS ID_CUSTOMER,\n\tcs.TX_CALL_STATUS AS ID_CALL_STATUS,\n\tcr.TX_CALL_RETURN AS ID_CALL_RETURN,\n\tch.DT_CALL_RETURN,\n\tco.TX_CALL_ORIGIN AS ID_CALL_ORIGIN,\n\tch.DT_CALL_ORIGIN,\n\tch.DT_CALL_LIMIT,\n\tch.NR_TIME_SERVICE,\n\tch.NR_EFFORT,\n\tch.NR_DELAY,\n\tch.BO_TIME_CALCULATED,\n\tch.TX_CLOSING_SOURCE,\n\tch.DT_LAST_CALCULATION,\n\tch.TX_SOURCE_LAST_CALCULATION,\n\tcc1.TX_CALL_COMPLEMENT_01 AS ID_CALL_COMPLEMENT_01,\n\tcc2.TX_CALL_COMPLEMENT_02 AS ID_CALL_COMPLEMENT_02,\n\tcc3.TX_CALL_COMPLEMENT_03 AS ID_CALL_COMPLEMENT_03,\n\tcp.TX_CALL_PHASE AS ID_CALL_PHASE,\n\tch.DT_CREATION,\n\tspc.TX_LOGIN + ':' + spc.TX_NAME AS ID_SEC_PERSON_CREATOR,\n\tch.DT_MODIFY,\n\tch.ID_SEC_PERSON_MODIFIER,\n\tch.ID_CHAT,\n\tch.CD_DETACHMENT_PROCESS,\n\tch.DT_DETACHMENT_PROCESS\nFROM [SB3].[SB3].[CALL_HD] AS ch\nLEFT JOIN [SB3].[SB3].[SEC_CONTEXT] AS sc\n\tON sc.ID_SEC_CONTEXT = ch.ID_SEC_CONTEXT\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spr\n\tON spr.ID_SEC_PERSON = ch.ID_SEC_PERSON_REPORTER\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spa\n\tON spa.ID_SEC_PERSON = ch.ID_SEC_PERSON_ATTENDANT\nLEFT JOIN [SB3].[SB3].[CALL_TYPE] AS ct\n\tON ct.ID_CALL_TYPE = ch.ID_CALL_TYPE\nLEFT JOIN [SB3].[SB3].[IMPACT] AS i\n\tON i.ID_IMPACT = ch.ID_IMPACT\nLEFT JOIN [SB3].[SB3].[PRIORITY] AS p\n\tON p.ID_PRIORITY = ch.ID_PRIORITY\nLEFT JOIN [SB3].[SB3].[CUSTOMER] AS c\n\tON c.ID_CUSTOMER = ch.ID_CUSTOMER\nLEFT JOIN [SB3].[SB3].[CALL_STATUS] AS cs\n\tON cs.ID_CALL_STATUS = ch.ID_CALL_STATUS\nLEFT JOIN [SB3].[SB3].[CALL_RETURN] AS cr\n\tON cr.ID_CALL_RETURN = ch.ID_CALL_RETURN\nLEFT JOIN [SB3].[SB3].[CALL_ORIGIN] AS co\n\tON co.ID_CALL_ORIGIN = ch.ID_CALL_ORIGIN\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_01] AS cc1\n\tON cc1.ID_CALL_COMPLEMENT_01 = ch.ID_CALL_COMPLEMENT_01\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_02] AS cc2\n\tON cc2.ID_CALL_COMPLEMENT_02 = ch.ID_CALL_COMPLEMENT_02\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_03] AS cc3\n\tON cc3.ID_CALL_COMPLEMENT_03 = ch.ID_CALL_COMPLEMENT_03\nLEFT JOIN [SB3].[SB3].[CALL_PHASE] AS cp\n\tON cp.ID_CALL_PHASE = ch.ID_CALL_PHASE\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spc\n\tON spc.ID_SEC_PERSON = ch.ID_SEC_PERSON_CREATOR\nWHERE\n\tch.ID_SEC_CONTEXT = 2",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_SQL_Local",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contexto": "1"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": "tbCtx02"
+								}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_SQL_Local')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_AZRSQL_Anexos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia base local para base no Azure - tabelas de anexos.",
+				"activities": [
+					{
+						"name": "Copia dados do SQL Local para SQL Azure - Anexos",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT \n        a.ID_CALL_ATTACH,\n\ta.ID_CALL_HD,\n\ta.TX_FILE_NAME,\n\ta.TX_FILE_PATH\nFROM [SB3].[SB3].[CALL_ATTACH] as a\n\n LEFT JOIN [SB3].[SB3].[CALL_HD] AS ch\n\tON ch.ID_CALL_HD = a.ID_CALL_HD\n\nWHERE a.ID_SEC_CONTEXT = 0",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_SQL_Local",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contexto": "0"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": "tbCtx00_Anexos"
+								}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_SQL_Local')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_AZRSQL_RecFiscal')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia base local para base no Azure para Recebimento Fiscal.",
+				"activities": [
+					{
+						"name": "RecFiscal SQL Local para SQL Azure",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT \n    FORMAT(ch.DT_CALL_OPENING, 'yyyy') AS \"YEAR\",\n    ch.ID_CALL_HD,\n    sc.TX_SEC_CONTEXT AS \"ID_SEC_CONTEXT\",\n    spr.TX_LOGIN + ':' + spr.TX_NAME AS \"ID_SEC_PERSON_REPORTER\",\n    spa.TX_LOGIN + ':' + spr.TX_NAME AS \"ID_SEC_PERSON_ATTENDANT\",\n    ct.TX_CALL_TYPE AS \"ID_CALL_TYPE\",\n    i.TX_IMPACT AS \"ID_IMPACT\",\n    p.TX_PRIORITY AS \"ID_PRIORITY\",\n    ch.TX_CALL_DESCRIPTION,\n    ch.DT_CALL_OPENING,\n    ch.DT_CALL_REGISTER,\n    ch.NR_TIME_DURATION,\n    CONVERT(VARCHAR(MAX),c.ID_PLACE) + ':' + c.TX_CUSTOMER_NAME AS \"ID_CUSTOMER\",\n    cs.TX_CALL_STATUS AS ID_CALL_STATUS,\n    cr.TX_CALL_RETURN AS \"ID_CALL_RETURN\",\n    ch.DT_CALL_RETURN,\n    co.TX_CALL_ORIGIN AS \"ID_CALL_ORIGIN\",\n    ch.DT_CALL_ORIGIN,\n    ch.DT_CALL_LIMIT,\n    ch.NR_TIME_SERVICE,\n    ch.NR_EFFORT,\n    ch.NR_DELAY,\n    ch.BO_TIME_CALCULATED,\n    ch.TX_CLOSING_SOURCE,\n    ch.DT_LAST_CALCULATION,\n    ch.TX_SOURCE_LAST_CALCULATION,\n    cc1.TX_CALL_COMPLEMENT_01 AS \"ID_CALL_COMPLEMENT_01\",\n    cc2.TX_CALL_COMPLEMENT_02 AS \"ID_CALL_COMPLEMENT_02\",\n    cc3.TX_CALL_COMPLEMENT_03 AS \"ID_CALL_COMPLEMENT_03\",\n    cp.TX_CALL_PHASE AS \"ID_CALL_PHASE\",\n    ch.DT_CREATION,\n    spc.TX_LOGIN + ':' + spc.TX_NAME AS \"ID_SEC_PERSON_CREATOR\",\n    ch.DT_MODIFY,\n    ch.ID_SEC_PERSON_MODIFIER,\n    ch.ID_CHAT,\n    ch.CD_DETACHMENT_PROCESS,\n    ch.DT_DETACHMENT_PROCESS\n\n \n\nFROM [SB3].[SB3].[CALL_HD] AS ch\n\n \n\nLEFT JOIN [SB3].[SB3].[SEC_CONTEXT] AS sc\n    ON sc.ID_SEC_CONTEXT = ch.ID_SEC_CONTEXT\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spr\n    ON spr.ID_SEC_PERSON = ch.ID_SEC_PERSON_REPORTER\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spa\n    ON spa.ID_SEC_PERSON = ch.ID_SEC_PERSON_ATTENDANT\nLEFT JOIN [SB3].[SB3].[CALL_TYPE] AS ct\n    ON ct.ID_CALL_TYPE = ch.ID_CALL_TYPE\nLEFT JOIN [SB3].[SB3].[IMPACT] AS i\n    ON i.ID_IMPACT = ch.ID_IMPACT\nLEFT JOIN [SB3].[SB3].[PRIORITY] AS p\n    ON p.ID_PRIORITY = ch.ID_PRIORITY\nLEFT JOIN [SB3].[SB3].[CUSTOMER] AS c\n    ON c.ID_CUSTOMER = ch.ID_CUSTOMER\nLEFT JOIN [SB3].[SB3].[CALL_STATUS] AS cs\n    ON cs.ID_CALL_STATUS = ch.ID_CALL_STATUS\nLEFT JOIN [SB3].[SB3].[CALL_RETURN] AS cr\n    ON cr.ID_CALL_RETURN = ch.ID_CALL_RETURN\nLEFT JOIN [SB3].[SB3].[CALL_ORIGIN] AS co\n    ON co.ID_CALL_ORIGIN = ch.ID_CALL_ORIGIN\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_01] AS cc1\n    ON cc1.ID_CALL_COMPLEMENT_01 = ch.ID_CALL_COMPLEMENT_01\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_02] AS cc2\n    ON cc2.ID_CALL_COMPLEMENT_02 = ch.ID_CALL_COMPLEMENT_02\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_03] AS cc3\n    ON cc3.ID_CALL_COMPLEMENT_03 = ch.ID_CALL_COMPLEMENT_03\nLEFT JOIN [SB3].[SB3].[CALL_PHASE] AS cp\n    ON cp.ID_CALL_PHASE = ch.ID_CALL_PHASE\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spc\n    ON spc.ID_SEC_PERSON = ch.ID_SEC_PERSON_CREATOR\n\n \n\nWHERE\n    ch.ID_SEC_CONTEXT = 2 AND FORMAT(ch.DT_CALL_OPENING, 'yyyy') = '2019' and ch.ID_CALL_TYPE in (667,\n668  ,\n669  ,\n670  ,\n1299 ,\n2462 ,\n2463 ,\n2551 ,\n2935 ,\n2945 ,\n3157 ,\n4096 ,\n4300 ,\n4355 ,\n4360 ,\n4367 ,\n4373 ,\n4375 ,\n5217 ,\n6016 ,\n6058 ,\n6803 ,\n7302 ,\n7526 ,\n7564)",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_SQL_Local",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contexto": "1"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": "tbCtx02_RecFiscal"
+								}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_SQL_Local')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_TO_CSV')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acessa base SQL do SB3 para obter dados dos chamados",
+				"activities": [
+					{
+						"name": "Filtro por contexto",
+						"description": "Define filtro por contexto",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT TOP 300 * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3DelimitedText",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_TO_JSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Acessa base SQL do SB3 para obter dados dos chamados",
+				"activities": [
+					{
+						"name": "Filtro por contexto",
+						"description": "Define filtro por contexto",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT TOP 300 * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_JSON')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_TO_SHP')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia chamados da base SB3 local para o Sharepoint no Azure",
+				"activities": [
+					{
+						"name": "Copia SB3 local para SHP",
+						"description": "Copia chamados da base SB3 local para o Sharepoint no Azure",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT TOP 100 * FROM SB3.SB3.VW_CHAMADO_COMPLETO where CONTEXTO = '1'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_SQL_Local",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contexto": "01"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copia SB3 local para SHP",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "RestSink",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": 10,
+								"requestMethod": "POST",
+								"writeBatchSize": 10000,
+								"httpCompressionType": "none"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['CONTEXTO']"
+										},
+										"sink": {
+											"path": "$['CONTEXTO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CHAMADO']"
+										},
+										"sink": {
+											"path": "$['CHAMADO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CASO']"
+										},
+										"sink": {
+											"path": "$['CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['ATENDENTE']"
+										},
+										"sink": {
+											"path": "$['ATENDENTE']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_TEMPO_REGISTRO_CHAMADO']"
+										},
+										"sink": {
+											"path": "$['NR_TEMPO_REGISTRO_CHAMADO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['DT_ABERTURA']"
+										},
+										"sink": {
+											"path": "$['DT_ABERTURA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['DT_LIMITE']"
+										},
+										"sink": {
+											"path": "$['DT_LIMITE']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['DT_ATUALIZACAO_CASO']"
+										},
+										"sink": {
+											"path": "$['DT_ATUALIZACAO_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['DT_ATUALIZACAO_CHAMADO']"
+										},
+										"sink": {
+											"path": "$['DT_ATUALIZACAO_CHAMADO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CLIENTE']"
+										},
+										"sink": {
+											"path": "$['CLIENTE']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['INF_ADIC_CLIENTE']"
+										},
+										"sink": {
+											"path": "$['INF_ADIC_CLIENTE']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['LOCALIZACAO']"
+										},
+										"sink": {
+											"path": "$['LOCALIZACAO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['RELATOR']"
+										},
+										"sink": {
+											"path": "$['RELATOR']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['RELATOR_LOGIN']"
+										},
+										"sink": {
+											"path": "$['RELATOR_LOGIN']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['RELATOR_MATRICULA']"
+										},
+										"sink": {
+											"path": "$['RELATOR_MATRICULA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['PRIORIDADE']"
+										},
+										"sink": {
+											"path": "$['PRIORIDADE']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['IMPACTO']"
+										},
+										"sink": {
+											"path": "$['IMPACTO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['ORIGEM']"
+										},
+										"sink": {
+											"path": "$['ORIGEM']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['STATUS']"
+										},
+										"sink": {
+											"path": "$['STATUS']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['SLA']"
+										},
+										"sink": {
+											"path": "$['SLA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['TIPO']"
+										},
+										"sink": {
+											"path": "$['TIPO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['COMPLEMENTO_1']"
+										},
+										"sink": {
+											"path": "$['COMPLEMENTO_1']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['COMPLEMENTO_2']"
+										},
+										"sink": {
+											"path": "$['COMPLEMENTO_2']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['COMPLEMENTO_3']"
+										},
+										"sink": {
+											"path": "$['COMPLEMENTO_3']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CLASS_ENCERRAMENTO']"
+										},
+										"sink": {
+											"path": "$['CLASS_ENCERRAMENTO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['FASE_CASO']"
+										},
+										"sink": {
+											"path": "$['FASE_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['DESCRICAO']"
+										},
+										"sink": {
+											"path": "$['DESCRICAO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['SOLUCAO']"
+										},
+										"sink": {
+											"path": "$['SOLUCAO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['INF_ADICIONAIS']"
+										},
+										"sink": {
+											"path": "$['INF_ADICIONAIS']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['BEM']"
+										},
+										"sink": {
+											"path": "$['BEM']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CRIADOR']"
+										},
+										"sink": {
+											"path": "$['CRIADOR']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CRIADOR_LOGIN']"
+										},
+										"sink": {
+											"path": "$['CRIADOR_LOGIN']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CRIADOR_MATRICULA']"
+										},
+										"sink": {
+											"path": "$['CRIADOR_MATRICULA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['RESPONSAVEL']"
+										},
+										"sink": {
+											"path": "$['RESPONSAVEL']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['GRUPO_RESPONSAVEL']"
+										},
+										"sink": {
+											"path": "$['GRUPO_RESPONSAVEL']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['EMPRESA']"
+										},
+										"sink": {
+											"path": "$['EMPRESA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Empresa_que_demanda_atividade']"
+										},
+										"sink": {
+											"path": "$['Empresa_que_demanda_atividade']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Organizacao_de_Compras']"
+										},
+										"sink": {
+											"path": "$['Organizacao_de_Compras']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Grupo_de_Compras']"
+										},
+										"sink": {
+											"path": "$['Grupo_de_Compras']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Grupo_de_Contas']"
+										},
+										"sink": {
+											"path": "$['Grupo_de_Contas']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Razao_Social_Nome']"
+										},
+										"sink": {
+											"path": "$['Razao_Social_Nome']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['MATRICULA']"
+										},
+										"sink": {
+											"path": "$['MATRICULA']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Rua_Numero']"
+										},
+										"sink": {
+											"path": "$['Rua_Numero']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CEP_CADASTRO']"
+										},
+										"sink": {
+											"path": "$['CEP_CADASTRO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Bairro']"
+										},
+										"sink": {
+											"path": "$['Bairro']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Justificativa']"
+										},
+										"sink": {
+											"path": "$['Justificativa']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Motivos_do_Bloqueio']"
+										},
+										"sink": {
+											"path": "$['Motivos_do_Bloqueio']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['Volume']"
+										},
+										"sink": {
+											"path": "$['Volume']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_TEMPO_DURACAO_CHAMADO']"
+										},
+										"sink": {
+											"path": "$['NR_TEMPO_DURACAO_CHAMADO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_TEMPO_DURACAO_CASO']"
+										},
+										"sink": {
+											"path": "$['NR_TEMPO_DURACAO_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_TEMPO_DURACAO_CASO_MINUTOS']"
+										},
+										"sink": {
+											"path": "$['NR_TEMPO_DURACAO_CASO_MINUTOS']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_ATRASO_CHAMADO']"
+										},
+										"sink": {
+											"path": "$['NR_ATRASO_CHAMADO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_ATRASO_CASO']"
+										},
+										"sink": {
+											"path": "$['NR_ATRASO_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_ATRASO_DESC_INTERR_CASO']"
+										},
+										"sink": {
+											"path": "$['NR_ATRASO_DESC_INTERR_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['RESPONSAVEL_ENCERR']"
+										},
+										"sink": {
+											"path": "$['RESPONSAVEL_ENCERR']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_ESFORCO_PREVISTO_CALC']"
+										},
+										"sink": {
+											"path": "$['NR_ESFORCO_PREVISTO_CALC']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_ESFORCO_CALC']"
+										},
+										"sink": {
+											"path": "$['NR_ESFORCO_CALC']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['NR_SALDO_CALC']"
+										},
+										"sink": {
+											"path": "$['NR_SALDO_CALC']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['TIPO_CASO']"
+										},
+										"sink": {
+											"path": "$['TIPO_CASO']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['TIPO_CASO_ANTERIOR']"
+										},
+										"sink": {
+											"path": "$['TIPO_CASO_ANTERIOR']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['CONTADOR']"
+										},
+										"sink": {
+											"path": "$['CONTADOR']"
+										}
+									},
+									{
+										"source": {
+											"path": "$['INF_ADIC_IMPACTO']"
+										},
+										"sink": {
+											"path": "$['INF_ADIC_IMPACTO']"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_REST_SHP",
+								"type": "DatasetReference",
+								"parameters": {
+									"relative_url": "/sites/novas tecnologias/legadoSB3/_api/web/Lists(guid'bb8b1bce-4ba3-4759-9b3a-6727b03a4fab')/items"
+								}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_SQL_Local')]",
+				"[concat(variables('factoryId'), '/datasets/SB3_JSON')]",
+				"[concat(variables('factoryId'), '/datasets/SB3_REST_SHP')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_FS_TO_AZRBlob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia dos arquivos do SB3 para o SQL Server",
+				"activities": [
+					{
+						"name": "Copia arquivos SB3 para Azure Blob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"fileListPath": "2/2021/01/01",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_LocalFiles",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_Blob_Files",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_LocalFiles')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_FS_Teste_TO_AZRBlob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia dos arquivos do SB3 para o SQL Server",
+				"activities": [
+					{
+						"name": "Copia arquivos SB3 para Azure Blob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"fileListPath": "1/2020/02/04/teste.docx",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings"
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_FS_Teste_BRSAOWVOUT001",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_Blob_Files",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOB')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetSharepointList",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Define pl_token_automatico",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+							},
+							{
+								"name": "Destination",
+								"value": "arquivos//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"additionalHeaders": {
+									"Authorization": {
+										"value": "@variables('pl_token_auto')",
+										"type": "Expression"
+									}
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "REST_SharepointTeste",
+								"type": "DatasetReference",
+								"parameters": {
+									"token": {
+										"value": "@activity('GetToken').output",
+										"type": "Expression"
+									},
+									"relative_url": "  "
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "BLOB_Json",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": {
+										"value": "@concat('shp_',pipeline().RunId)",
+										"type": "Expression"
+									},
+									"dir": "sharepoint"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetToken",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+							"linkedServices": [
+								{
+									"referenceName": "ls_frctestedatafactory",
+									"type": "LinkedServiceReference"
+								}
+							],
+							"datasets": [
+								{
+									"referenceName": "BLOB_Json",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": "token",
+										"dir": "sharepoint"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Define pl_token_manual",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_token",
+							"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyIsImtpZCI6IkJCOENlRlZxeWFHckdOdWVoSklpTDRkZmp6dyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdm90b3JhbnRpbWluZHVzdHJpYWwuc2hhcmVwb2ludC5jb21ANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsImlhdCI6MTU3NTAyNjA5OCwibmJmIjoxNTc1MDI2MDk4LCJleHAiOjE1NzUwNTUxOTgsImlkZW50aXR5cHJvdmlkZXIiOiIwMDAwMDAwMS0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDBANDkxNThkZjgtMDRkZi00ZGIyLWExYWUtZWUzOTQ5Y2EzOTg0IiwibmFtZWlkIjoiZWQ2ZTYwMjItNzBiZC00ZGQ5LWJjOTktNjU3MGNjZDZlNThkQDQ5MTU4ZGY4LTA0ZGYtNGRiMi1hMWFlLWVlMzk0OWNhMzk4NCIsIm9pZCI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInN1YiI6IjQ5OTViYTMxLWYyZTktNDJhYi1hZmVlLWE3MDE0MjBjZjIzMiIsInRydXN0ZWRmb3JkZWxlZ2F0aW9uIjoiZmFsc2UifQ.CtCVGPMylaMq5Puq-Mcbgp7WE6QiWRNQr2wwPp1Qh2Vanz5EXxFUgPDAd4vDR0IAWhih2wP5ybjS6XiaULbwWh4DePYdpRw1fCevkVcn62OZRs3r5nDjg1Hb0uqtn60OiuJ7Tizht4ozzjha289a7rzQrf40S_F2qRo47Y3Hotw1_vzJvZ5HobimuJTvi2MS7WKSKvBZF1sMhspiwon0L_-eax7w54YQ7ZzKP6QC2H9fZSswdSe8q5jCdr0tJzEgZ5r6dDjOuSQOqz54yaZVcd5rsTy_s7-0k4CirlB4lUPoGca06ksQJjuX0-wc2g0DLetgfwIn-vhfWt9cys_krQ"
+						}
+					},
+					{
+						"name": "Define pl_test",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_test",
+							"value": {
+								"value": "@string(activity('GetToken').output)",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Define pl_teste2",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_test2",
+							"value": {
+								"value": "@activity('GetToken').output.access_token",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Define pl_token_automatico",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_token_auto",
+							"value": {
+								"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"variables": {
+					"pl_token": {
+						"type": "String",
+						"defaultValue": "."
+					},
+					"pl_test": {
+						"type": "String",
+						"defaultValue": "teste"
+					},
+					"pl_test2": {
+						"type": "String",
+						"defaultValue": "teste2"
+					},
+					"pl_token_auto": {
+						"type": "String",
+						"defaultValue": "."
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOBv2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Retorna somente alguns campos da lista Sharepoint, passando a query como parâmetro para o linked service.",
+				"activities": [
+					{
+						"name": "GetSharepointList",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Define pl_token_automatico",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
+							},
+							{
+								"name": "Destination",
+								"value": "arquivos//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"additionalHeaders": {
+									"Authorization": {
+										"value": "@variables('pl_token_auto')",
+										"type": "Expression"
+									}
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "REST_SharepointTeste",
+								"type": "DatasetReference",
+								"parameters": {
+									"token": {
+										"value": "@activity('GetToken').output",
+										"type": "Expression"
+									},
+									"relative_url": "?$select=Title,Codigo%5Fx0020%5FSAP,Raz%5Fx00e3%5Fo%5Fx0020%5FSocial"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "BLOB_Json",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": {
+										"value": "@concat('shpv2_',pipeline().RunId)",
+										"type": "Expression"
+									},
+									"dir": "sharepoint"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetToken",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+							"linkedServices": [
+								{
+									"referenceName": "ls_frctestedatafactory",
+									"type": "LinkedServiceReference"
+								}
+							],
+							"datasets": [
+								{
+									"referenceName": "BLOB_Json",
+									"type": "DatasetReference",
+									"parameters": {
+										"filename": "token",
+										"dir": "sharepoint"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Define pl_token_automatico",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "pl_token_auto",
+							"value": {
+								"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"concurrency": 1,
+				"variables": {
+					"pl_token_auto": {
+						"type": "String",
+						"defaultValue": "."
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		}
+	]
+}
