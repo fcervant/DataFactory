@@ -1014,14 +1014,7 @@
 					{
 						"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
 						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Contexto",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -1090,20 +1083,6 @@
 								}
 							}
 						]
-					},
-					{
-						"name": "Contexto",
-						"description": "Define o contexto que será utilizado na query.",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "vContexto",
-							"value": {
-								"value": "''",
-								"type": "Expression"
-							}
-						}
 					}
 				],
 				"variables": {
