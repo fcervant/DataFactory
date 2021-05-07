@@ -76,7 +76,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"cvs_fileName": {
-								"value": "@concat('SB3_CVSFile_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
+								"value": "@concat('SB3_CVS_CTXT',variables('vContexto'),'_',variables('vAno'),'_',variables('vMes'),'.csv')\n",
 								"type": "Expression"
 							}
 						}
@@ -101,11 +101,11 @@
 		"variables": {
 			"vContexto": {
 				"type": "String",
-				"defaultValue": "01"
+				"defaultValue": "02"
 			},
 			"vTableChamados": {
 				"type": "String",
-				"defaultValue": "tbCtx01"
+				"defaultValue": "tbCtx02"
 			},
 			"vAno": {
 				"type": "String",
@@ -113,11 +113,11 @@
 			},
 			"vMes": {
 				"type": "String",
-				"defaultValue": "05"
+				"defaultValue": "01"
 			},
 			"vTableAnexos": {
 				"type": "String",
-				"defaultValue": "tbCtx01_Anexos"
+				"defaultValue": "tbCtx02_Anexos"
 			}
 		},
 		"folder": {
