@@ -35,7 +35,11 @@
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"partitionOption": "DynamicRange",
+						"partitionSettings": {
+							"partitionUpperBound": "",
+							"partitionLowerBound": ""
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
