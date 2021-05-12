@@ -2,6 +2,106 @@
 	"name": "TesteSharepoint",
 	"properties": {
 		"description": "Teste com Sharepoint",
+		"activities": [
+			{
+				"name": "Verifica se arquivo existe no diretorio",
+				"description": "Após execução do pipeline valida se arquivo foi criado.",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SB3_CSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"cvs_fileName": "teste.csv"
+						}
+					},
+					"fieldList": [
+						"exists"
+					],
+					"storeSettings": {
+						"type": "FileServerReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Verifica se arquivo existe no diretorio",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "REST_SB3_Sharepoint",
+						"type": "DatasetReference",
+						"parameters": {
+							"Accept": "application/json;odata=verbose",
+							"Content-Type": "application/json;odata=verbose"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SB3_CSV",
+						"type": "DatasetReference",
+						"parameters": {
+							"cvs_fileName": "SHP_Teste.csv"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"FileExists": {
+				"type": "String",
+				"defaultValue": "false"
+			}
+		},
 		"folder": {
 			"name": "SB3"
 		},
