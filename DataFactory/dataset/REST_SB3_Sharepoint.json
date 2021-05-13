@@ -21,7 +21,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "/_api/lists/getbytitle('ListaCustomers')/items"
+			"relativeUrl": "/_api/lists/getbytitle('Chamados')/items"
 		},
 		"schema": []
 	}
