@@ -37,11 +37,11 @@
 				}
 			},
 			{
-				"name": "Copy data1",
+				"name": "Acessa Sharepoint",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "GetToken",
+						"activity": "vToken",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -60,7 +60,13 @@
 						"type": "RestSource",
 						"httpRequestTimeout": "00:01:40",
 						"requestInterval": "00.00:00:00.010",
-						"requestMethod": "GET"
+						"requestMethod": "GET",
+						"additionalHeaders": {
+							"Authorization": {
+								"value": "@activity('GetToken').output",
+								"type": "Expression"
+							}
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -128,12 +134,28 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "vToken",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "GetToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"variables": {
 			"FileExists": {
 				"type": "String",
 				"defaultValue": "false"
+			},
+			"vToken": {
+				"type": "String"
 			}
 		},
 		"folder": {
