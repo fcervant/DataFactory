@@ -97,7 +97,7 @@
 		},
 		"REST_SB3_Sharepoint_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "fernandorc"
+			"defaultValue": "vid_vpar\\fernandorc"
 		},
 		"RestServiceSHPDecConf_properties_typeProperties_url": {
 			"type": "string",
@@ -565,7 +565,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"cvs_fileName": {
-										"value": "@concat('SB3_CVS_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'.csv')",
+										"value": "@concat('SB3_CVS_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'_',pipeline().parameters.vID_Sharepoint,'.csv')",
 										"type": "Expression"
 									}
 								}
@@ -587,6 +587,9 @@
 						"type": "string"
 					},
 					"vAno": {
+						"type": "string"
+					},
+					"vID_Sharepoint": {
 						"type": "string"
 					}
 				},
@@ -2178,6 +2181,188 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TesteSharepoint')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Teste com Sharepoint",
+				"activities": [
+					{
+						"name": "Verifica se arquivo existe no diretorio",
+						"description": "Após execução do pipeline valida se arquivo foi criado.",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": "teste.csv"
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "FileServerReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Acessa Sharepoint",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "SetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"additionalHeaders": {
+									"Authorization": {
+										"value": "@variables('vToken')",
+										"type": "Expression"
+									}
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "REST_SB3_Sharepoint",
+								"type": "DatasetReference",
+								"parameters": {
+									"Accept": "application/json;odata=verbose",
+									"Content-Type": "application/json;odata=verbose"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": "SHP_Teste.csv"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetToken",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Verifica se arquivo existe no diretorio",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": "grant_type=client_credentials&\nclient_id=63a455c0-3bb0-48df-ad2e-d327cb2b23f3@49158df8-04df-4db2-a1ae-ee3949ca3984&\nclient_secret=FtIRlUSuL0dnEMhbgOCIAbtD44zjiVz4JlZk97nI8gw=&\nresource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+							"linkedServices": [
+								{
+									"referenceName": "REST_SB3_Sharepoint",
+									"type": "LinkedServiceReference"
+								}
+							]
+						}
+					},
+					{
+						"name": "SetToken",
+						"description": "Define token para autenticação no Sharepoint",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "vToken",
+							"value": {
+								"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"variables": {
+					"FileExists": {
+						"type": "String",
+						"defaultValue": "false"
+					},
+					"vToken": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SB3_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/REST_SB3_Sharepoint')]",
+				"[concat(variables('factoryId'), '/linkedServices/REST_SB3_Sharepoint')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipe_SB3_to_SHP_CUSTOMER')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2979,7 +3164,7 @@
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {
-					"relativeUrl": "/_api/lists/getbytitle('ListaCustomers')/items"
+					"relativeUrl": "/_api/lists/getbytitle('Chamados')/items"
 				},
 				"schema": []
 			},

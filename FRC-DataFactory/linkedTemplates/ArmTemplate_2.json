@@ -1077,7 +1077,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"cvs_fileName": {
-										"value": "@concat('SB3_CVS_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'.csv')",
+										"value": "@concat('SB3_CVS_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'_',pipeline().parameters.vID_Sharepoint,'.csv')",
 										"type": "Expression"
 									}
 								}
@@ -1099,6 +1099,9 @@
 						"type": "string"
 					},
 					"vAno": {
+						"type": "string"
+					},
+					"vID_Sharepoint": {
 						"type": "string"
 					}
 				},
@@ -2628,6 +2631,184 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TesteSharepoint')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Teste com Sharepoint",
+				"activities": [
+					{
+						"name": "Verifica se arquivo existe no diretorio",
+						"description": "Após execução do pipeline valida se arquivo foi criado.",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": "teste.csv"
+								}
+							},
+							"fieldList": [
+								"exists"
+							],
+							"storeSettings": {
+								"type": "FileServerReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "Acessa Sharepoint",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "SetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "RestSource",
+								"httpRequestTimeout": "00:01:40",
+								"requestInterval": "00.00:00:00.010",
+								"requestMethod": "GET",
+								"additionalHeaders": {
+									"Authorization": {
+										"value": "@variables('vToken')",
+										"type": "Expression"
+									}
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "REST_SB3_Sharepoint",
+								"type": "DatasetReference",
+								"parameters": {
+									"Accept": "application/json;odata=verbose",
+									"Content-Type": "application/json;odata=verbose"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": "SHP_Teste.csv"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetToken",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Verifica se arquivo existe no diretorio",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": "grant_type=client_credentials&\nclient_id=63a455c0-3bb0-48df-ad2e-d327cb2b23f3@49158df8-04df-4db2-a1ae-ee3949ca3984&\nclient_secret=FtIRlUSuL0dnEMhbgOCIAbtD44zjiVz4JlZk97nI8gw=&\nresource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+							"linkedServices": [
+								{
+									"referenceName": "REST_SB3_Sharepoint",
+									"type": "LinkedServiceReference"
+								}
+							]
+						}
+					},
+					{
+						"name": "SetToken",
+						"description": "Define token para autenticação no Sharepoint",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "GetToken",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "vToken",
+							"value": {
+								"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"variables": {
+					"FileExists": {
+						"type": "String",
+						"defaultValue": "false"
+					},
+					"vToken": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOB')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2840,161 +3021,6 @@
 						"type": "String",
 						"defaultValue": "teste2"
 					},
-					"pl_token_auto": {
-						"type": "String",
-						"defaultValue": "."
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipe_SHPTest_BLOBv2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Retorna somente alguns campos da lista Sharepoint, passando a query como parâmetro para o linked service.",
-				"activities": [
-					{
-						"name": "GetSharepointList",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "Define pl_token_automatico",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "https://votorantimindustrial.sharepoint.com/sites/ccti_sistemas/novastec/testes/_api/web"
-							},
-							{
-								"name": "Destination",
-								"value": "arquivos//"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "RestSource",
-								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
-								"requestMethod": "GET",
-								"additionalHeaders": {
-									"Authorization": {
-										"value": "@variables('pl_token_auto')",
-										"type": "Expression"
-									}
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "REST_SharepointTeste",
-								"type": "DatasetReference",
-								"parameters": {
-									"token": {
-										"value": "@activity('GetToken').output",
-										"type": "Expression"
-									},
-									"relative_url": "?$select=Title,Codigo%5Fx0020%5FSAP,Raz%5Fx00e3%5Fo%5Fx0020%5FSocial"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "BLOB_Json",
-								"type": "DatasetReference",
-								"parameters": {
-									"filename": {
-										"value": "@concat('shpv2_',pipeline().RunId)",
-										"type": "Expression"
-									},
-									"dir": "sharepoint"
-								}
-							}
-						]
-					},
-					{
-						"name": "GetToken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://accounts.accesscontrol.windows.net/49158df8-04df-4db2-a1ae-ee3949ca3984/tokens/OAuth/2",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": "grant_type=client_credentials&client_id=ed6e6022-70bd-4dd9-bc99-6570ccd6e58d%4049158df8-04df-4db2-a1ae-ee3949ca3984&client_secret=eJOWNvu0GfBv8ZfcRxtD06oKOfNt4KgcJ%2Bv2ctcJ%2BUc%3D\n&resource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
-							"linkedServices": [
-								{
-									"referenceName": "ls_frctestedatafactory",
-									"type": "LinkedServiceReference"
-								}
-							],
-							"datasets": [
-								{
-									"referenceName": "BLOB_Json",
-									"type": "DatasetReference",
-									"parameters": {
-										"filename": "token",
-										"dir": "sharepoint"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Define pl_token_automatico",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "GetToken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "pl_token_auto",
-							"value": {
-								"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"concurrency": 1,
-				"variables": {
 					"pl_token_auto": {
 						"type": "String",
 						"defaultValue": "."
