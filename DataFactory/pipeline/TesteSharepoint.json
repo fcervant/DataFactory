@@ -120,7 +120,7 @@
 					"headers": {
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
-					"body": "grant_type=client_credentials&\nclient_id=63a455c0-3bb0-48df-ad2e-d327cb2b23f3&\nclient_secret=FtIRlUSuL0dnEMhbgOCIAbtD44zjiVz4JlZk97nI8gw=&\nresource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
+					"body": "grant_type=client_credentials&\nclient_id=63a455c0-3bb0-48df-ad2e-d327cb2b23f3@49158df8-04df-4db2-a1ae-ee3949ca3984&\nclient_secret=FtIRlUSuL0dnEMhbgOCIAbtD44zjiVz4JlZk97nI8gw=&\nresource=00000003-0000-0ff1-ce00-000000000000/votorantimindustrial.sharepoint.com@49158df8-04df-4db2-a1ae-ee3949ca3984",
 					"linkedServices": [
 						{
 							"referenceName": "REST_SB3_Sharepoint",
