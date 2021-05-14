@@ -41,7 +41,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "vToken",
+						"activity": "SetToken",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -63,7 +63,7 @@
 						"requestMethod": "GET",
 						"additionalHeaders": {
 							"Authorization": {
-								"value": "@activity('GetToken').output",
+								"value": "@variables('vToken')",
 								"type": "Expression"
 							}
 						}
@@ -136,8 +136,9 @@
 				}
 			},
 			{
-				"name": "vToken",
-				"type": "AppendVariable",
+				"name": "SetToken",
+				"description": "Define token para autenticação no Sharepoint",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
 						"activity": "GetToken",
@@ -146,7 +147,14 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "vToken",
+					"value": {
+						"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
