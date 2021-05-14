@@ -51,8 +51,7 @@
 							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings",
-							"quoteAllText": true
+							"type": "JsonWriteSettings"
 						}
 					},
 					"enableStaging": false
@@ -128,7 +127,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "pl_token_auto",
-					"value": "@concat('Bearer ',activity('GetToken').output.access_token)"
+					"value": {
+						"value": "@concat('Bearer ',activity('GetToken').output.access_token)",
+						"type": "Expression"
+					}
 				}
 			}
 		],
