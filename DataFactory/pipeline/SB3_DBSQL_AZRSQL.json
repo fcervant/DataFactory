@@ -5,15 +5,9 @@
 		"activities": [
 			{
 				"name": "Copia dados do SQL Local para SQL Azure",
+				"description": "Atenção: só executar o processo de carga full com a tabela destino zerada (drop)",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "If Condition1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -57,7 +51,7 @@
 						"referenceName": "SB3_SQL_Local",
 						"type": "DatasetReference",
 						"parameters": {
-							"Contexto": "5"
+							"Contexto": "99"
 						}
 					}
 				],
@@ -66,23 +60,10 @@
 						"referenceName": "SB3_AzureSQL",
 						"type": "DatasetReference",
 						"parameters": {
-							"tbName": "tbCtx05"
+							"tbName": "tbCtx99"
 						}
 					}
 				]
-			},
-			{
-				"name": "If Condition1",
-				"description": "Só executar o processo de carga completa com as tabelas destino zeradas (drop)",
-				"type": "IfCondition",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "1=2",
-						"type": "Expression"
-					}
-				}
 			}
 		],
 		"folder": {
