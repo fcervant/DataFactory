@@ -70,7 +70,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"cvs_fileName": {
-								"value": "@concat('SB3_CVS_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'_',pipeline().parameters.vID_Sharepoint,'.csv')",
+								"value": "@concat('SB3_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'_',pipeline().parameters.vID_Sharepoint,'.csv')",
 								"type": "Expression"
 							}
 						}
