@@ -1,0 +1,202 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "FRC-DataFactory"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_AZRSQL_TO_Excel')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia dados do SB3 SQL Azure para o Excel - formato CSV",
+				"activities": [
+					{
+						"name": "Copia dados do SQL SB3 Azure para uma planilha Excel",
+						"description": "Pipeline para cópia dos registros SB3, parâmetros necessários: contexto, ano e mês. É gerado um arquivo CSV para consulta.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT  \n    a.ID_CALL_HD,\n    a.ID_CALL_ATTACH,\n    ch.ID_SEC_CONTEXT,\n    ch.DT_CALL_OPENING,\n    ch.ID_CUSTOMER,\n    REPLACE(ch.TX_CALL_DESCRIPTION,CHAR(10),' , ') as TX_CALL_DESCRIPTION,\n    a.TX_FILE_NAME,\n    a.TX_FILE_PATH,\n    ch.YEAR,\n    ch.DT_MES\nFROM @{concat('[bdlegadosb3].[',pipeline().parameters.vTableAnexos,']')} as a \nLEFT JOIN @{concat('[bdlegadosb3].[',pipeline().parameters.vTableChamados,']')} AS ch \n\tON ch.ID_CALL_HD = a.ID_CALL_HD \nWHERE ch.DT_MES = @{pipeline().parameters.vMes} AND ch.YEAR = @{pipeline().parameters.vAno} \nORDER BY ch.DT_CALL_OPENING ASC",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": {
+										"value": "@concat('tbCtx',pipeline().parameters.vContexto)",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_CSV",
+								"type": "DatasetReference",
+								"parameters": {
+									"cvs_fileName": {
+										"value": "@concat('SB3_CTXT',pipeline().parameters.vContexto,'_',pipeline().parameters.vAno,'_',pipeline().parameters.vMes,'_',pipeline().parameters.vID_Sharepoint,'.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"vContexto": {
+						"type": "string"
+					},
+					"vTableChamados": {
+						"type": "string"
+					},
+					"vTableAnexos": {
+						"type": "string"
+					},
+					"vMes": {
+						"type": "string"
+					},
+					"vAno": {
+						"type": "string"
+					},
+					"vID_Sharepoint": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SB3_DBSQL_AZRSQL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copia base local para base no Azure",
+				"activities": [
+					{
+						"name": "Copia dados do SQL Local para SQL Azure",
+						"description": "Atenção: só executar o processo de carga full com a tabela destino zerada (drop)",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Contexto",
+								"value": "0"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": {
+									"value": "SELECT FORMAT(ch.DT_CALL_OPENING, 'yyyy') AS YEAR,\n\tCAST(ch.ID_CALL_HD AS CHAR(13)) AS ID_CALL_HD,\n\tCONVERT(int,CAST(ch.DT_CALL_OPENING as datetime)) AS DT_CALL_OPENING_VALUE,\n\tCAST(MONTH(ch.DT_CALL_OPENING) AS CHAR(2)) AS DT_MES,\n\tsc.TX_SEC_CONTEXT AS ID_SEC_CONTEXT,\n\tspr.TX_LOGIN + ':' + spr.TX_NAME AS ID_SEC_PERSON_REPORTER,\n\tspa.TX_LOGIN + ':' + spr.TX_NAME AS ID_SEC_PERSON_ATTENDANT,\n\tct.TX_CALL_TYPE AS ID_CALL_TYPE,\n\ti.TX_IMPACT AS ID_IMPACT,\n\tp.TX_PRIORITY AS ID_PRIORITY,\n\tch.TX_CALL_DESCRIPTION,\n\tch.DT_CALL_OPENING,\n\tch.DT_CALL_REGISTER,\n\tch.NR_TIME_DURATION,\n\tCONVERT(VARCHAR(MAX),c.ID_PLACE) + ':' + c.TX_CUSTOMER_NAME AS ID_CUSTOMER,\n\tcs.TX_CALL_STATUS AS ID_CALL_STATUS,\n\tcr.TX_CALL_RETURN AS ID_CALL_RETURN,\n\tch.DT_CALL_RETURN,\n\tco.TX_CALL_ORIGIN AS ID_CALL_ORIGIN,\n\tch.DT_CALL_ORIGIN,\n\tch.DT_CALL_LIMIT,\n\tch.NR_TIME_SERVICE,\n\tch.NR_EFFORT,\n\tch.NR_DELAY,\n\tch.BO_TIME_CALCULATED,\n\tch.TX_CLOSING_SOURCE,\n\tch.DT_LAST_CALCULATION,\n\tch.TX_SOURCE_LAST_CALCULATION,\n\tcc1.TX_CALL_COMPLEMENT_01 AS ID_CALL_COMPLEMENT_01,\n\tcc2.TX_CALL_COMPLEMENT_02 AS ID_CALL_COMPLEMENT_02,\n\tcc3.TX_CALL_COMPLEMENT_03 AS ID_CALL_COMPLEMENT_03,\n\tcp.TX_CALL_PHASE AS ID_CALL_PHASE,\n\tch.DT_CREATION,\n\tspc.TX_LOGIN + ':' + spc.TX_NAME AS ID_SEC_PERSON_CREATOR,\n\tch.DT_MODIFY,\n\tch.ID_SEC_PERSON_MODIFIER,\n\tch.ID_CHAT,\n\tch.CD_DETACHMENT_PROCESS,\n\tch.DT_DETACHMENT_PROCESS\nFROM [SB3].[SB3].[CALL_HD] AS ch\nLEFT JOIN [SB3].[SB3].[SEC_CONTEXT] AS sc\n\tON sc.ID_SEC_CONTEXT = ch.ID_SEC_CONTEXT\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spr\n\tON spr.ID_SEC_PERSON = ch.ID_SEC_PERSON_REPORTER\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spa\n\tON spa.ID_SEC_PERSON = ch.ID_SEC_PERSON_ATTENDANT\nLEFT JOIN [SB3].[SB3].[CALL_TYPE] AS ct\n\tON ct.ID_CALL_TYPE = ch.ID_CALL_TYPE\nLEFT JOIN [SB3].[SB3].[IMPACT] AS i\n\tON i.ID_IMPACT = ch.ID_IMPACT\nLEFT JOIN [SB3].[SB3].[PRIORITY] AS p\n\tON p.ID_PRIORITY = ch.ID_PRIORITY\nLEFT JOIN [SB3].[SB3].[CUSTOMER] AS c\n\tON c.ID_CUSTOMER = ch.ID_CUSTOMER\nLEFT JOIN [SB3].[SB3].[CALL_STATUS] AS cs\n\tON cs.ID_CALL_STATUS = ch.ID_CALL_STATUS\nLEFT JOIN [SB3].[SB3].[CALL_RETURN] AS cr\n\tON cr.ID_CALL_RETURN = ch.ID_CALL_RETURN\nLEFT JOIN [SB3].[SB3].[CALL_ORIGIN] AS co\n\tON co.ID_CALL_ORIGIN = ch.ID_CALL_ORIGIN\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_01] AS cc1\n\tON cc1.ID_CALL_COMPLEMENT_01 = ch.ID_CALL_COMPLEMENT_01\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_02] AS cc2\n\tON cc2.ID_CALL_COMPLEMENT_02 = ch.ID_CALL_COMPLEMENT_02\nLEFT JOIN [SB3].[SB3].[CALL_COMPLEMENT_03] AS cc3\n\tON cc3.ID_CALL_COMPLEMENT_03 = ch.ID_CALL_COMPLEMENT_03\nLEFT JOIN [SB3].[SB3].[CALL_PHASE] AS cp\n\tON cp.ID_CALL_PHASE = ch.ID_CALL_PHASE\nLEFT JOIN [SB3].[SB3].[SEC_PERSON] AS spc\n\tON spc.ID_SEC_PERSON = ch.ID_SEC_PERSON_CREATOR\nWHERE\n\tch.ID_SEC_CONTEXT = 99",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SB3_SQL_Local",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contexto": "99"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "SB3_AzureSQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tbName": "tbCtx99"
+								}
+							}
+						]
+					}
+				],
+				"folder": {
+					"name": "SB3"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		}
+	]
+}
