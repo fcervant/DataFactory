@@ -6,7 +6,14 @@
 			{
 				"name": "Copia dados do SQL Local para SQL Azure",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "If Condition1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -63,6 +70,13 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "If Condition1",
+				"description": "Só executar o processo de carga completa com as tabelas destino zeradas (drop)",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"folder": {
