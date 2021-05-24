@@ -57,7 +57,7 @@
 			"value": "http://dummy.restapiexample.com/api/v1/employees"
 		},
 		"FileServer_Source_properties_typeProperties_host": {
-			"value": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\TesteSB3"
+			"value": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\LegadoSB3"
 		},
 		"FileServer_Source_properties_typeProperties_userId": {
 			"value": "vid_vpar\\fernandorc"

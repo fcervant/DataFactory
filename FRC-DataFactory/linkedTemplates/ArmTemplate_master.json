@@ -77,7 +77,7 @@
 		},
 		"FileServer_Source_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\TesteSB3"
+			"defaultValue": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\LegadoSB3"
 		},
 		"FileServer_Source_properties_typeProperties_userId": {
 			"type": "string",
