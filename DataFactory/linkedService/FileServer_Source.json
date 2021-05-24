@@ -6,9 +6,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\TesteSB3",
+			"host": "\\\\azrstrs01vsa.vpar.votorantim.grupo\\SHARES\\CCTI\\_PUBLICA\\LegadoSB3",
 			"userId": "vid_vpar\\fernandorc",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhZTcwMGM0Yy1lNjEwLTRkZTYtYTZmNi01NWM0OWI2NzRjYzgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkNjgzNDBhMy0yN2FkLTQ0OGEtYmJkNi00NDkxYjcyYjE1MjYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRlab021",
