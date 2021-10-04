@@ -1,0 +1,17 @@
+{
+	"name": "teste_forponto",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "forponto",
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=BRSAOWVSQLQA1VC.vc.votorantim.grupo;initial catalog=DBFORPONTO;user id=vid_vpar\\fernandorc",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyZDc3ZjQ3Ny0zMDQ1LTQ1MGQtYjMzOC04ODcwM2JmYzBjMDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "IRlab021",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
